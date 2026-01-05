@@ -1,0 +1,10 @@
+y_label1:
+  color: "#AABBCC"
+  description: "label1-desc"
+
+y_label2:
+  description: "label2-random-color"
+
+y_label3:
+  color: "#12AB89"
+  # No color or description - will get random color and null description
