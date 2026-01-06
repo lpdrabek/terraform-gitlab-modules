@@ -145,11 +145,11 @@ module "project_milestones" {
 
 The module validates:
 
-- ✅ `state` must be: `active` or `closed`
-- ✅ `start_date` must be in `YYYY-MM-DD` format
-- ✅ `due_date` must be in `YYYY-MM-DD` format
-- ✅ `start_date` must be before or equal to `due_date`
-- ✅ Empty strings are allowed and treated as `null`
+- `state` must be: `active` or `closed`
+- `start_date` must be in `YYYY-MM-DD` format
+- `due_date` must be in `YYYY-MM-DD` format
+- `start_date` must be before or equal to `due_date`
+- Empty strings are allowed and treated as `null`
 
 ## Examples
 
