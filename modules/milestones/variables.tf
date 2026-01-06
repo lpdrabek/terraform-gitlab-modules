@@ -42,7 +42,7 @@ variable "milestones" {
       for key, milestone in var.milestones :
       (milestone.start_date == null || milestone.start_date == "" ||
         milestone.due_date == null || milestone.due_date == "" ||
-        milestone.start_date <= milestone.due_date)
+      milestone.start_date <= milestone.due_date)
     ])
     error_message = "start_date must be before or equal to due_date"
   }
