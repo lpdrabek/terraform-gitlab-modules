@@ -1,0 +1,3 @@
+release:
+  link_url: "https://gitlab.com/%%{project_path}/-/releases"
+  image_url: "https://img.shields.io/badge/release-latest-blue.svg"

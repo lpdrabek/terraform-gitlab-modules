@@ -1,0 +1,9 @@
+BUILD_NUMBER:
+  value: "123"
+  description: "Build number from CI"
+
+FEATURE_FLAG:
+  value: "enabled"
+  description: "Feature toggle"
+  environment_scope: "production"
+  protected: true

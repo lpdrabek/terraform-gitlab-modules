@@ -1,0 +1,9 @@
+documentation:
+  color: "#0052CC"
+  description: "Improvements or additions to documentation"
+
+wontfix:
+  color: "#CCCCCC"
+  description: "This will not be worked on"
+
+quicklabel:

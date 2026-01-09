@@ -56,6 +56,14 @@ variable "variables" {
     ])
     error_message = "environment_scope must contain only alphanumeric characters, *, /, _, or - (e.g., 'production', 'staging/*', '*')"
   }
+
+  validation {
+    condition = alltrue([
+      for key, variable in var.variables :
+      !variable.hidden || variable.masked
+    ])
+    error_message = "Hidden variables must also be masked (hidden requires masked = true)"
+  }
 }
 
 variable "variables_file" {

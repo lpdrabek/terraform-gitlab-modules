@@ -1,5 +1,5 @@
 resource "gitlab_project_issue" "issues" {
-  for_each              = var.create_only ? {} : local.all_issues
+  for_each              = { for k, v in local.all_issues : k => v if !var.create_only }
   project               = var.project_id
   title                 = each.value.title
   description           = each.value.description
@@ -25,7 +25,7 @@ resource "gitlab_project_issue" "issues" {
 }
 
 resource "gitlab_project_issue" "create_only_issues" {
-  for_each              = var.create_only ? local.all_issues : {}
+  for_each              = { for k, v in local.all_issues : k => v if var.create_only }
   project               = var.project_id
   title                 = each.value.title
   description           = each.value.description

@@ -24,6 +24,7 @@ variable "boards" {
       iteration_id = optional(number)
       label_id     = optional(number)
       milestone_id = optional(number)
+      position     = optional(number) # For group boards only
     })))
   }))
   default = {}

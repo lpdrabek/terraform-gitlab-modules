@@ -1,0 +1,11 @@
+# Basic boards from YAML (Free tier)
+Release Planning: {}
+
+Backlog Management: {}
+
+# Premium features (uncomment if available)
+# Scoped Board:
+#   labels:
+#     - bug
+#     - critical
+#   milestone_id: 123

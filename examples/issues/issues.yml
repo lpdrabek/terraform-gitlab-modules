@@ -1,0 +1,20 @@
+Update dependencies:
+  title: "Update dependencies"
+  description: "Update all project dependencies to latest versions"
+  issue_type: "issue"
+  labels:
+    infrastructure: {}
+    "v1-release": {}
+  milestone:
+    "v1.0.0": {}
+
+Security audit:
+  title: "Security audit"
+  description: "Perform security review before release"
+  issue_type: "issue"
+  labels:
+    bug:
+      color: "#FF0000"
+      description: "Something isn't working"
+  milestone:
+    "v1.0.0": {}

@@ -1,5 +1,5 @@
 resource "gitlab_project_issue_board" "issue_board" {
-  for_each = var.target.type == "project" ? local.all_boards : {}
+  for_each = { for k, v in local.all_boards : k => v if var.target.type == "project" }
   project  = var.target.id
   name     = each.key
 
@@ -20,7 +20,7 @@ resource "gitlab_project_issue_board" "issue_board" {
 }
 
 resource "gitlab_group_issue_board" "issue_board" {
-  for_each = var.target.type == "group" ? local.all_boards : {}
+  for_each = { for k, v in local.all_boards : k => v if var.target.type == "group" }
   group    = var.target.id
   name     = each.key
 
