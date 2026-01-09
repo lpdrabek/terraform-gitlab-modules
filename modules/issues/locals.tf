@@ -1,6 +1,8 @@
 locals {
-  issues_from_file = var.issues_file != null ? {
-    for name, issue in yamldecode(file(var.issues_file)) :
+  yaml_content = try(yamldecode(file(var.issues_file)), {})
+
+  issues_from_file = {
+    for name, issue in local.yaml_content :
     name => {
       title                                   = issue.title
       description                             = try(issue.description, null)
@@ -21,7 +23,7 @@ locals {
       updated_at                              = try(issue.updated_at, null)
       weight                                  = try(issue.weight, null)
     }
-  } : {}
+  }
 
   all_issues = merge(var.issues, local.issues_from_file)
 }

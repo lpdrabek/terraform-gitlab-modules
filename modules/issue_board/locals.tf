@@ -1,6 +1,8 @@
 locals {
-  boards_from_file = var.boards_file != null ? {
-    for name, board in yamldecode(file(var.boards_file)) :
+  yaml_content = try(yamldecode(file(var.boards_file)), {})
+
+  boards_from_file = {
+    for name, board in local.yaml_content :
     name => {
       labels       = try(board.labels, null)
       assignee_id  = try(board.assignee_id, null)
@@ -16,7 +18,7 @@ locals {
         }
       ] : null, null)
     }
-  } : {}
+  }
 
   all_boards = merge(var.boards, local.boards_from_file)
 }
