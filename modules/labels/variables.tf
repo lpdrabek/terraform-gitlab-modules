@@ -25,3 +25,9 @@ variable "labels_file" {
   type        = string
   default     = null
 }
+
+variable "create_only" {
+  description = "If set to true, labels will only be created and ignore attribute changes after creation"
+  type        = bool
+  default     = false
+}

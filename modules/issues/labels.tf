@@ -32,6 +32,7 @@ locals {
 
 module "project_labels" {
   source = "../labels"
+  count  = var.create_labels ? 1 : 0
 
   labels = local.distinct_labels
   target = {
