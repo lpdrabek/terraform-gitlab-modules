@@ -49,3 +49,9 @@ variable "badges_file" {
   type        = string
   default     = null
 }
+
+variable "create_only" {
+  description = "If set to true, badges will only be created and ignore attribute changes after creation"
+  type        = bool
+  default     = false
+}

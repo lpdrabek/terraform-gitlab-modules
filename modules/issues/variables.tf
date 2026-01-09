@@ -89,16 +89,13 @@ variable "create_only" {
 }
 
 variable "create_milestones" {
-  description = "If set to false, module will only try to get existing milestones from Gitlab."
+  description = "If set to false, module will not create milestones (assumes they already exist)."
   type        = bool
   default     = true
 }
 
-####
-# TODO, Gitlab has no datasource for labels yet
-###
-# variable "create_labels" {
-#   description = "If set to false, module will only try to get existing labels from Gitlab."
-#   type        = bool
-#   default     = true
-# }
+variable "create_labels" {
+  description = "If set to false, module will not create labels (assumes they already exist)."
+  type        = bool
+  default     = true
+}
