@@ -1,0 +1,238 @@
+# GitLab Project Module
+
+This Terraform module manages GitLab projects with comprehensive configuration options. It supports defining projects via Terraform configuration or YAML files, including nested resources like milestones, labels, badges, and issues.
+
+## Features
+
+- Create and manage GitLab projects with full configuration
+- YAML file support for easier project management
+- Nested resource management (milestones, labels, badges, issues)
+- Push rules configuration
+- Container expiration policy
+- Create-only mode to prevent drift after initial creation
+
+## Requirements
+
+- Terraform >= 1.6.0
+- GitLab Provider >= 18.0.0, < 19.0.0
+
+## Usage
+
+### Basic Usage
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects = {
+    "my-project" = {
+      description      = "My awesome project"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+      default_branch   = "main"
+
+      # Merge Request Settings
+      merge_method                          = "merge"
+      squash_option                         = "default_off"
+      remove_source_branch_after_merge      = true
+      only_allow_merge_if_pipeline_succeeds = true
+    }
+  }
+}
+```
+
+### Using YAML File
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects_file = "./projects.yml"
+}
+```
+
+Example `projects.yml`:
+
+```yaml
+my-project:
+  description: "My awesome project"
+  namespace_id: 12345
+  visibility_level: private
+  default_branch: main
+  merge_method: merge
+  squash_option: default_off
+  remove_source_branch_after_merge: true
+
+another-project:
+  description: "Another project"
+  namespace_id: 12345
+  visibility_level: internal
+  initialize_with_readme: true
+```
+
+### With Push Rules
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects = {
+    "secure-project" = {
+      description      = "Project with push rules"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      push_rules = {
+        commit_message_regex = "^(feat|fix|docs|style|refactor|test|chore):"
+        branch_name_regex    = "^(feature|bugfix|hotfix)/"
+        prevent_secrets      = true
+        max_file_size        = 10
+      }
+    }
+  }
+}
+```
+
+### With Nested Resources
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects = {
+    "full-project" = {
+      description      = "Project with all resources"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      # Labels
+      labels = {
+        bug = {
+          color       = "#FF0000"
+          description = "Something isn't working"
+        }
+        enhancement = {
+          color       = "#00FF00"
+          description = "New feature"
+        }
+      }
+
+      # Milestones
+      milestones = {
+        "v1.0" = {
+          description = "First release"
+          due_date    = "2025-06-30"
+        }
+      }
+
+      # Badges
+      badges = {
+        pipeline = {
+          link_url  = "https://gitlab.com/my-group/full-project/-/pipelines"
+          image_url = "https://gitlab.com/my-group/full-project/badges/main/pipeline.svg"
+        }
+      }
+    }
+  }
+}
+```
+
+### Create-Only Mode
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  create_only = true
+
+  projects = {
+    "imported-project" = {
+      description      = "Imported project - don't manage after creation"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+    }
+  }
+}
+```
+
+## Input Variables
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|----------|
+| `projects` | Map of projects to create | `map(object({...}))` | `{}` | No |
+| `projects_file` | Path to YAML file containing projects | `string` | `null` | No |
+| `create_only` | If true, ignore attribute changes after creation | `bool` | `false` | No |
+
+## Project Properties
+
+### Core Settings
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `description` | string | `null` | Project description |
+| `namespace_id` | number | `null` | Namespace (group) ID |
+| `path` | string | `null` | Project path (defaults to name) |
+| `visibility_level` | string | `"private"` | `private`, `internal`, or `public` |
+| `default_branch` | string | `null` | Default branch name |
+
+### Repository Configuration
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `import_url` | string | `null` | URL to import repository from |
+| `mirror` | bool | `null` | Enable repository mirroring |
+| `initialize_with_readme` | bool | `false` | Initialize with README |
+| `forked_from_project_id` | number | `null` | Fork from this project |
+
+### CI/CD Settings
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `ci_config_path` | string | `null` | Path to CI config file |
+| `build_timeout` | number | `3600` | Build timeout in seconds |
+| `shared_runners_enabled` | bool | `true` | Enable shared runners |
+| `auto_devops_enabled` | bool | `null` | Enable Auto DevOps |
+
+### Merge Request Settings
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `merge_method` | string | `"merge"` | `merge`, `rebase_merge`, or `ff` |
+| `squash_option` | string | `"default_off"` | `never`, `always`, `default_on`, `default_off` |
+| `only_allow_merge_if_pipeline_succeeds` | bool | `false` | Require passing pipeline |
+| `remove_source_branch_after_merge` | bool | `false` | Delete source branch after merge |
+
+### Push Rules
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `commit_message_regex` | string | Regex for commit messages |
+| `branch_name_regex` | string | Regex for branch names |
+| `prevent_secrets` | bool | Prevent pushing secrets |
+| `max_file_size` | number | Max file size in MB |
+
+### Nested Resources
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `labels` | map | Project labels |
+| `milestones` | map | Project milestones |
+| `badges` | map | Project badges |
+| `issues` | map | Project issues |
+| `labels_file` | string | Path to labels YAML file |
+| `milestones_file` | string | Path to milestones YAML file |
+| `badges_file` | string | Path to badges YAML file |
+| `issues_file` | string | Path to issues YAML file |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| `projects` | Map of created projects with their details |
+| `project_ids` | Map of project names to IDs |
+
+## GitLab Documentation
+
+- [Projects](https://docs.gitlab.com/ee/user/project/)
+- [Projects API](https://docs.gitlab.com/ee/api/projects.html)
+- [Push Rules](https://docs.gitlab.com/ee/user/project/repository/push_rules.html)
