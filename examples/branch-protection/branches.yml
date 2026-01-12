@@ -1,0 +1,41 @@
+# Branch protection configuration
+# Note: User/group-level permissions (allowed_to_*, groups_allowed_to_*)
+# require GitLab Premium/Ultimate. Free tier only supports access levels.
+
+main:
+  push_access_level: maintainer
+  merge_access_level: developer
+  unprotect_access_level: maintainer
+  allow_force_push: false
+
+develop:
+  push_access_level: developer
+  merge_access_level: developer
+  allow_force_push: false
+
+# Example: User-level permissions (requires GitLab Premium/Ultimate)
+# On Free tier, using allowed_to_* will result in error:
+# "Push access levels user must be blank"
+#
+# main:
+#   search_by: username
+#   push_access_level: maintainer
+#   merge_access_level: developer
+#   allowed_to_push:
+#     - admin_user
+#   allowed_to_merge:
+#     - dev_user
+#     - admin_user
+
+# Example: Group-level permissions (requires GitLab Premium/Ultimate)
+# On Free tier, using groups_allowed_to_* will result in error:
+# "Merge access levels group must be blank"
+#
+# staging:
+#   search_by: fullpath
+#   push_access_level: no one
+#   merge_access_level: maintainer
+#   groups_allowed_to_push:
+#     - my-group/devops
+#   groups_allowed_to_merge:
+#     - my-group/devops
