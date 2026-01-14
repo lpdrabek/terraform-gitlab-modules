@@ -6,7 +6,7 @@
 # Project Access Tokens - from YAML file
 # -----------------------------------------------------------------------------
 module "project_tokens_yaml" {
-  source = "../../modules/access_token"
+  source = "../../modules/access-token"
 
   target = {
     type = "project"
@@ -20,7 +20,7 @@ module "project_tokens_yaml" {
 # Project Access Tokens - inline HCL
 # -----------------------------------------------------------------------------
 module "project_tokens_inline" {
-  source = "../../modules/access_token"
+  source = "../../modules/access-token"
 
   target = {
     type = "project"
@@ -47,7 +47,7 @@ module "project_tokens_inline" {
 # Group Access Tokens
 # -----------------------------------------------------------------------------
 module "group_tokens" {
-  source = "../../modules/access_token"
+  source = "../../modules/access-token"
 
   target = {
     type = "group"
