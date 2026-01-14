@@ -1,0 +1,29 @@
+# Access tokens defined via YAML
+# These are merged with tokens defined in HCL
+
+# CI/CD token for automated pipelines
+ci-token:
+  scopes:
+    - read_repository
+    - write_repository
+  access_level: developer
+  description: "Token for CI/CD pipelines"
+  expires_at: "2026-12-31"
+
+# Read-only token for external services
+readonly-token:
+  scopes:
+    - read_api
+    - read_repository
+  access_level: reporter
+  description: "Read-only token for monitoring"
+  expires_at: "2026-06-30"
+
+# Registry access token
+registry-token:
+  scopes:
+    - read_registry
+    - write_registry
+  access_level: developer
+  description: "Token for container registry access"
+  expires_at: "2026-12-31"
