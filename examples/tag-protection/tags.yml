@@ -1,0 +1,34 @@
+# Tag protection configuration
+# Note: User/group-level permissions (allowed_to_create, groups_allowed_to_create)
+# require GitLab Premium/Ultimate. Free tier only supports create_access_level.
+
+# Protect version tags - only maintainers can create
+v*:
+  create_access_level: maintainer
+
+# Protect release tags - only maintainers can create
+release-*:
+  create_access_level: maintainer
+
+# Development tags - developers can create
+dev-*:
+  create_access_level: developer
+
+# Example: User-level permissions (requires GitLab Premium/Ultimate)
+# On Free tier, using allowed_to_create will result in error.
+#
+# v*:
+#   search_by: username
+#   create_access_level: no one
+#   allowed_to_create:
+#     - release_manager
+#     - admin_user
+
+# Example: Group-level permissions (requires GitLab Premium/Ultimate)
+# On Free tier, using groups_allowed_to_create will result in error.
+#
+# release-*:
+#   search_by: fullpath
+#   create_access_level: no one
+#   groups_allowed_to_create:
+#     - my-group/release-managers
