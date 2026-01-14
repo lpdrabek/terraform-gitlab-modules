@@ -25,6 +25,7 @@ AI has been used to create all the things I don't like creating so:
 |--------|-------------|
 | [project](./modules/project/) | Create and manage GitLab projects with full configuration |
 | [branch-protection](./modules/branch-protection/) | Manage branch protection rules |
+| [tag-protection](./modules/tag-protection/) | Manage tag protection rules |
 | [membership](./modules/membership/) | Manage project and group memberships |
 | [labels](./modules/labels/) | Manage project and group labels |
 | [badges](./modules/badges/) | Manage project and group badges |
@@ -155,6 +156,7 @@ Working examples are available in the [examples](./examples/) directory:
 |---------|-------------|
 | [project](./examples/project/) | Project creation with various settings |
 | [branch-protection](./examples/branch-protection/) | Branch protection rules |
+| [tag-protection](./examples/tag-protection/) | Tag protection rules |
 | [membership](./examples/membership/) | Project and group memberships |
 | [labels](./examples/labels/) | Label management |
 | [badges](./examples/badges/) | Badge management |
@@ -171,6 +173,8 @@ Most features work with GitLab Free tier. Premium/Ultimate features are document
 |---------|:----:|:-------:|:--------:|
 | Basic branch protection | ✓ | ✓ | ✓ |
 | User/group-level branch permissions | | ✓ | ✓ |
+| Basic tag protection | ✓ | ✓ | ✓ |
+| User/group-level tag permissions | | ✓ | ✓ |
 | Code owner approval | | ✓ | ✓ |
 | Custom member roles | | | ✓ |
 | Issue board assignee/iteration lists | | ✓ | ✓ |
