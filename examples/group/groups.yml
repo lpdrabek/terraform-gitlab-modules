@@ -1,0 +1,127 @@
+# Group configuration
+# Map key is used as the group name
+
+my-organization:
+  description: "Main organization group"
+  visibility_level: private
+  project_creation_level: maintainer
+  subgroup_creation_level: maintainer
+  request_access_enabled: true
+  lfs_enabled: true
+  emails_enabled: true
+
+# Example: Group with default branch protection
+secure-team:
+  description: "Team with branch protection defaults"
+  visibility_level: private
+  default_branch: main
+  default_branch_protection_defaults:
+    allowed_to_push:
+      - maintainer
+    allowed_to_merge:
+      - maintainer
+    allow_force_push: false
+    developer_can_initial_push: false
+
+# Example: Group with push rules
+compliant-team:
+  description: "Team with commit compliance rules"
+  visibility_level: private
+  push_rules:
+    commit_message_regex: "^(feat|fix|docs|style|refactor|test|chore):"
+    branch_name_regex: "^(feature|bugfix|hotfix|release)/"
+    prevent_secrets: true
+    max_file_size: 50
+
+# Example: High security group
+restricted-access:
+  description: "Restricted access group"
+  visibility_level: private
+  require_two_factor_authentication: true
+  two_factor_grace_period: 24
+  membership_lock: true
+  share_with_group_lock: true
+  prevent_forking_outside_group: true
+
+# Example: Group with projects defined in YAML
+devops-team:
+  description: "DevOps team with projects"
+  visibility_level: private
+  project_creation_level: maintainer
+
+  projects:
+    terraform-modules:
+      description: "Shared Terraform modules"
+      initialize_with_readme: true
+      default_branch: main
+      topics:
+        - terraform
+        - iac
+
+      # Labels for categorizing issues/MRs
+      labels:
+        bug:
+          color: "#FF0000"
+          description: "Something isn't working"
+        enhancement:
+          color: "#00FF00"
+          description: "New feature or improvement"
+        documentation:
+          color: "#0075ca"
+          description: "Documentation updates"
+        help-wanted:
+          color: "#008672"
+          description: "Extra attention needed"
+
+      # Project milestones
+      milestones:
+        v1.0:
+          description: "Initial release with core modules"
+          due_date: "2024-06-01"
+        v1.1:
+          description: "Additional modules and bug fixes"
+          start_date: "2024-06-01"
+          due_date: "2024-08-01"
+
+      # Project badges
+      badges:
+        pipeline:
+          link_url: "https://gitlab.com/devops-team/terraform-modules/pipelines"
+          image_url: "https://gitlab.com/devops-team/terraform-modules/badges/main/pipeline.svg"
+
+    ansible-playbooks:
+      description: "Ansible automation playbooks"
+      initialize_with_readme: true
+      default_branch: main
+
+      labels:
+        playbook:
+          color: "#7057ff"
+          description: "Playbook related"
+        role:
+          color: "#d73a4a"
+          description: "Ansible role"
+
+      push_rules:
+        commit_message_regex: "^(feat|fix|docs):"
+        prevent_secrets: true
+
+    ci-templates:
+      description: "CI/CD pipeline templates"
+      initialize_with_readme: true
+      builds_access_level: enabled
+      shared_runners_enabled: true
+
+      labels:
+        template:
+          color: "#1d76db"
+          description: "Pipeline template"
+
+      # Example issues
+      issues:
+        setup-docker-template:
+          title: "Create Docker build template"
+          description: "Create a reusable template for Docker image builds"
+        setup-deploy-template:
+          title: "Create deployment template"
+          description: "Create templates for Kubernetes deployments"
