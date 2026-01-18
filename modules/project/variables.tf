@@ -174,6 +174,28 @@ variable "projects" {
     })), {})
     issues_file        = optional(string)
     issues_create_only = optional(bool, false)
+
+    # Push Mirror - replicate this project to an external repository
+    push_mirror = optional(object({
+      url                     = string               # URL of the remote repository to push to
+      auth_method             = optional(string)     # Authentication method: ssh_public_key, password
+      enabled                 = optional(bool, true) # Whether the mirror is enabled
+      keep_divergent_refs     = optional(bool)       # Skip divergent refs instead of failing
+      only_protected_branches = optional(bool)       # Only mirror protected branches
+      mirror_branch_regex     = optional(string)     # Regex for branches to mirror (Premium/Ultimate)
+    }))
+
+    # Pull Mirror - sync from an external repository into this project
+    pull_mirror = optional(object({
+      url                                 = string               # URL of the remote repository to pull from
+      auth_user                           = optional(string)     # Username for authentication
+      auth_password                       = optional(string)     # Password or token for authentication
+      enabled                             = optional(bool, true) # Whether the mirror is enabled
+      mirror_overwrites_diverged_branches = optional(bool)       # Overwrite diverged branches
+      mirror_trigger_builds               = optional(bool)       # Trigger pipelines when mirror updates
+      only_mirror_protected_branches      = optional(bool)       # Only mirror protected branches
+      mirror_branch_regex                 = optional(string)     # Regex for branches to mirror (Premium/Ultimate)
+    }))
   }))
   default = {}
 

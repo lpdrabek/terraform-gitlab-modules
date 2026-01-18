@@ -95,3 +95,9 @@ output "issues" {
     key => issues_module.issues
   }
 }
+
+output "push_mirror_ssh_public_keys" {
+  description = "SSH public keys for push mirrors using ssh_public_key authentication"
+  value       = module.push_mirror.mirror_keys
+  sensitive   = true
+}

@@ -142,8 +142,42 @@ locals {
       issues             = try(project.issues, {})
       issues_file        = try(project.issues_file, null)
       issues_create_only = try(project.issues_create_only, false)
+
+      # Push Mirror
+      push_mirror = try(project.push_mirror, null) != null ? {
+        url                     = project.push_mirror.url
+        auth_method             = try(project.push_mirror.auth_method, null)
+        enabled                 = try(project.push_mirror.enabled, true)
+        keep_divergent_refs     = try(project.push_mirror.keep_divergent_refs, null)
+        only_protected_branches = try(project.push_mirror.only_protected_branches, null)
+        mirror_branch_regex     = try(project.push_mirror.mirror_branch_regex, null)
+      } : null
+
+      # Pull Mirror
+      pull_mirror = try(project.pull_mirror, null) != null ? {
+        url                                 = project.pull_mirror.url
+        auth_user                           = try(project.pull_mirror.auth_user, null)
+        auth_password                       = try(project.pull_mirror.auth_password, null)
+        enabled                             = try(project.pull_mirror.enabled, true)
+        mirror_overwrites_diverged_branches = try(project.pull_mirror.mirror_overwrites_diverged_branches, null)
+        mirror_trigger_builds               = try(project.pull_mirror.mirror_trigger_builds, null)
+        only_mirror_protected_branches      = try(project.pull_mirror.only_mirror_protected_branches, null)
+        mirror_branch_regex                 = try(project.pull_mirror.mirror_branch_regex, null)
+      } : null
     }
   }
 
   all_projects = merge(var.projects, local.projects_from_file)
+
+  projects_with_push_mirror = {
+    for name, project in local.all_projects :
+    name => project
+    if project.push_mirror != null
+  }
+
+  projects_with_pull_mirror = {
+    for name, project in local.all_projects :
+    name => project
+    if project.pull_mirror != null
+  }
 }

@@ -1,0 +1,52 @@
+# Project Mirror Configuration
+# Key is the project ID or path
+# Note: This file should contain mirrors for one type only (push OR pull)
+
+# =============================================================================
+# Push Mirror Examples
+# =============================================================================
+
+# Push mirror with password authentication
+# The project will be mirrored to the specified URL
+# 77567304:
+#   url: https://github.com/example/mirror-repo.git
+#   auth_method: password
+#   enabled: true
+#   only_protected_branches: true
+
+# Push mirror with SSH authentication
+# Use ssh_public_key auth_method for SSH URLs
+# After creating, add the generated SSH public key to the target repository
+# my-group/my-project:
+#   url: ssh://git@github.com/example/mirror-repo.git
+#   auth_method: ssh_public_key
+#   enabled: true
+#   keep_divergent_refs: true
+
+# Push mirror with branch filtering (Premium/Ultimate only)
+# Only branches matching the regex will be mirrored
+# my-group/filtered-project:
+#   url: https://github.com/example/filtered-mirror.git
+#   auth_method: password
+#   mirror_branch_regex: "^(main|release-.*)$"
+
+# =============================================================================
+# Pull Mirror Examples (use with type = "pull")
+# =============================================================================
+
+# Pull mirror with authentication
+# Sync changes from an external repository into GitLab
+# my-group/synced-project:
+#   url: https://github.com/example/source-repo.git
+#   auth_user: oauth2
+#   auth_password: ${GITHUB_TOKEN}  # Use environment variable
+#   enabled: true
+#   mirror_overwrites_diverged_branches: true
+#   mirror_trigger_builds: true
+
+# Pull mirror - protected branches only
+# my-group/protected-sync:
+#   url: https://github.com/example/source-repo.git
+#   auth_user: oauth2
+#   auth_password: ${GITHUB_TOKEN}
+#   only_mirror_protected_branches: true

@@ -7,6 +7,7 @@ This Terraform module manages GitLab projects with comprehensive configuration o
 - Create and manage GitLab projects with full configuration
 - YAML file support for easier project management
 - Nested resource management (milestones, labels, badges, issues)
+- Push and pull mirror configuration
 - Push rules configuration
 - Container expiration policy
 - Create-only mode to prevent drift after initial creation
@@ -137,6 +138,52 @@ module "projects" {
 }
 ```
 
+### With Push Mirror
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects = {
+    "mirrored-project" = {
+      description      = "Project mirrored to GitHub"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      push_mirror = {
+        url                     = "https://github.com/example/mirror-repo.git"
+        auth_method             = "password"
+        enabled                 = true
+        only_protected_branches = true
+      }
+    }
+  }
+}
+```
+
+### With Pull Mirror
+
+```hcl
+module "projects" {
+  source = "./modules/project"
+
+  projects = {
+    "synced-project" = {
+      description      = "Project synced from GitHub"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      pull_mirror = {
+        url                   = "https://github.com/example/source-repo.git"
+        auth_user             = "oauth2"
+        auth_password         = var.github_token
+        mirror_trigger_builds = true
+      }
+    }
+  }
+}
+```
+
 ### Create-Only Mode
 
 ```hcl
@@ -211,6 +258,30 @@ module "projects" {
 | `prevent_secrets` | bool | Prevent pushing secrets |
 | `max_file_size` | number | Max file size in MB |
 
+### Push Mirror
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `url` | string | - | URL of the remote repository to push to (required) |
+| `auth_method` | string | `null` | Authentication method: `ssh_public_key` or `password` |
+| `enabled` | bool | `true` | Whether the mirror is enabled |
+| `keep_divergent_refs` | bool | `null` | Skip divergent refs instead of failing |
+| `only_protected_branches` | bool | `null` | Only mirror protected branches |
+| `mirror_branch_regex` | string | `null` | Regex for branches to mirror (Premium/Ultimate) |
+
+### Pull Mirror
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `url` | string | - | URL of the remote repository to pull from (required) |
+| `auth_user` | string | `null` | Username for authentication |
+| `auth_password` | string | `null` | Password or token for authentication |
+| `enabled` | bool | `true` | Whether the mirror is enabled |
+| `mirror_overwrites_diverged_branches` | bool | `null` | Overwrite diverged branches |
+| `mirror_trigger_builds` | bool | `null` | Trigger pipelines when mirror updates |
+| `only_mirror_protected_branches` | bool | `null` | Only mirror protected branches |
+| `mirror_branch_regex` | string | `null` | Regex for branches to mirror (Premium/Ultimate) |
+
 ### Nested Resources
 
 | Property | Type | Description |
@@ -236,3 +307,4 @@ module "projects" {
 - [Projects](https://docs.gitlab.com/ee/user/project/)
 - [Projects API](https://docs.gitlab.com/ee/api/projects.html)
 - [Push Rules](https://docs.gitlab.com/ee/user/project/repository/push_rules.html)
+- [Repository Mirroring](https://docs.gitlab.com/ee/user/project/repository/mirror/)
