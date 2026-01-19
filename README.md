@@ -203,10 +203,30 @@ gitlab_token = "glpat-xxxxxxxxxxxx"
 
 ## Contributing
 
+### Development Setup
+
+1. Install [pre-commit](https://pre-commit.com/):
+   ```bash
+   pip install pre-commit
+   ```
+
+2. Install [tflint](https://github.com/terraform-linters/tflint):
+   ```bash
+   curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+   ```
+
+3. Install the pre-commit hooks:
+   ```bash
+   pre-commit install
+   ```
+
+### Making Changes
+
 1. Create a feature branch
 2. Make your changes
-3. Test with `tofu validate` and `tofu plan`
-4. Submit a merge request
+3. Test with `tofu plan` and `tofu apply` in the relevant example directory
+4. Pre-commit hooks will run automatically on `git commit`
+5. Submit a merge request
 
 ## License
 
