@@ -3,7 +3,7 @@ resource "gitlab_project_issue_board" "issue_board" {
   project  = var.target.id
   name     = each.key
 
-  # No Gitlab EE license - no way to test this, sorry    
+  # No Gitlab EE license - no way to test this, sorry
   labels       = each.value.labels
   assignee_id  = each.value.assignee_id
   milestone_id = each.value.milestone_id
@@ -24,7 +24,7 @@ resource "gitlab_group_issue_board" "issue_board" {
   group    = var.target.id
   name     = each.key
 
-  # No Gitlab EE license - no way to test this, sorry    
+  # No Gitlab EE license - no way to test this, sorry
   labels       = each.value.labels
   milestone_id = each.value.milestone_id
   dynamic "lists" {
