@@ -9,6 +9,7 @@ output "push_mirrors" {
       only_protected_branches = v.only_protected_branches
     }
   }
+  sensitive = true
 }
 
 output "pull_mirrors" {
@@ -22,6 +23,7 @@ output "pull_mirrors" {
       only_mirror_protected_branches = v.only_mirror_protected_branches
     }
   }
+  sensitive = true
 }
 
 output "mirrored_projects" {

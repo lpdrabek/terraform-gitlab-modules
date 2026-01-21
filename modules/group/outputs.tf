@@ -1,6 +1,7 @@
 output "groups" {
   description = "Map of created groups"
   value       = merge(gitlab_group.groups, gitlab_group.create_only_groups)
+  sensitive   = true
 }
 
 output "group_ids" {
