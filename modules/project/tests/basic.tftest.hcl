@@ -29,6 +29,11 @@ run "basic_project" {
     condition     = gitlab_project.projects["my-project"].visibility_level == "private"
     error_message = "visibility_level should default to 'private'"
   }
+
+  assert {
+    condition     = length(gitlab_pipeline_trigger.pipeline_trigger) == 0
+    error_message = "Should not create 'gitlab_pipeline_trigger'"
+  }
 }
 
 run "project_with_description" {
@@ -459,5 +464,22 @@ run "project_default_values" {
   assert {
     condition     = gitlab_project.projects["defaults-project"].build_git_strategy == "fetch"
     error_message = "Default build_git_strategy should be 'fetch'"
+  }
+}
+
+run "project_with_pipeline_trigger" {
+  command = plan
+
+  variables {
+    projects = {
+      "trigger" = {
+        pipeline_trigger = "trigger"
+      }
+    }
+  }
+
+  assert {
+    condition     = gitlab_pipeline_trigger.pipeline_trigger["trigger"].description == "trigger"
+    error_message = "Trigger description should be \"trigger\""
   }
 }

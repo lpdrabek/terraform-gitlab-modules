@@ -311,6 +311,18 @@ module "projects" {
       merge_commit_template  = "Merge branch '%%{source_branch}' into '%%{target_branch}'\n\nMerge request: %%{url}"
       squash_commit_template = "%%{title}\n\n%%{description}"
     }
+
+    # -----------------------------------------------------------------------------
+    # Project with Pipeline Trigger
+    # -----------------------------------------------------------------------------
+    "tf-test-pipeline-trigger" = {
+      description            = "Project with a pipeline trigger token"
+      namespace_id           = data.gitlab_group.main_group.id
+      initialize_with_readme = true
+
+      # Pipeline trigger - creates a trigger token for external CI/CD integrations
+      pipeline_trigger = "External CI trigger"
+    }
   }
 
   # Also load projects from YAML file
@@ -354,4 +366,10 @@ output "badges" {
 output "issues" {
   description = "Issues created for each project"
   value       = module.projects.issues
+}
+
+output "pipeline_triggers" {
+  description = "Pipeline triggers created for each project"
+  value       = module.projects.pipeline_triggers
+  sensitive   = true
 }
