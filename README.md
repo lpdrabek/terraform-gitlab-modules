@@ -33,6 +33,7 @@ AI has been used to create all the things I don't like creating so:
 | [issues](./modules/issues/) | Manage project issues |
 | [issue_board](./modules/issue_board/) | Manage project and group issue boards |
 | [variables](./modules/variables/) | Manage CI/CD variables |
+| [pipeline-schedule](./modules/pipeline-schedule/) | Manage pipeline schedules |
 
 ## Quick Start
 
@@ -164,6 +165,7 @@ Working examples are available in the [examples](./examples/) directory:
 | [issues](./examples/issues/) | Issue management |
 | [issue_board](./examples/issue_board/) | Issue board management |
 | [variables](./examples/variables/) | CI/CD variable management |
+| [pipeline-schedule](./examples/pipeline-schedule/) | Pipeline schedule management |
 
 ## GitLab Tier Compatibility
 
