@@ -164,6 +164,9 @@ locals {
         only_mirror_protected_branches      = try(project.pull_mirror.only_mirror_protected_branches, null)
         mirror_branch_regex                 = try(project.pull_mirror.mirror_branch_regex, null)
       } : null
+
+      # Pipeline trigger - creates a trigger that you can curl to start a pipeline
+      pipeline_trigger = try(project.pipeline_trigger, null)
     }
   }
 

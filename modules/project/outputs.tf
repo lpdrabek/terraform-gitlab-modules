@@ -204,3 +204,16 @@ output "push_mirror_ssh_public_keys" {
   }
   sensitive = true
 }
+
+output "pipeline_triggers" {
+  description = "Map of project names to their pipeline trigger tokens"
+  value = {
+    for key, trigger in gitlab_pipeline_trigger.pipeline_trigger :
+    key => {
+      id          = trigger.id
+      description = trigger.description
+      token       = trigger.token
+    }
+  }
+  sensitive = true
+}

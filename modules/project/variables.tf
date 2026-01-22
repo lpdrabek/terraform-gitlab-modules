@@ -159,17 +159,17 @@ variable "projects" {
         start_date  = optional(string)
         due_date    = optional(string)
       })))
-      epic_issue_id                            = optional(number)
-      issue_type                               = optional(string)
-      state                                    = optional(string)
-      confidential                             = optional(bool)
-      weight                                   = optional(number)
-      due_date                                 = optional(string)
-      created_at                               = optional(string)
-      updated_at                               = optional(string)
-      discussion_locked                        = optional(bool)
-      discussion_to_resolve                    = optional(string)
-      delete_on_destroy                        = optional(bool)
+      epic_issue_id                           = optional(number)
+      issue_type                              = optional(string)
+      state                                   = optional(string)
+      confidential                            = optional(bool)
+      weight                                  = optional(number)
+      due_date                                = optional(string)
+      created_at                              = optional(string)
+      updated_at                              = optional(string)
+      discussion_locked                       = optional(bool)
+      discussion_to_resolve                   = optional(string)
+      delete_on_destroy                       = optional(bool)
       merge_request_to_resolve_discussions_of = optional(number)
     })), {})
     issues_file        = optional(string)
@@ -196,6 +196,9 @@ variable "projects" {
       only_mirror_protected_branches      = optional(bool)       # Only mirror protected branches
       mirror_branch_regex                 = optional(string)     # Regex for branches to mirror (Premium/Ultimate)
     }))
+
+    # Pipeline trigger - creates a trigger that you can curl to start a pipeline
+    pipeline_trigger = optional(string)
   }))
   default = {}
 
