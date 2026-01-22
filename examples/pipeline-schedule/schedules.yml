@@ -1,0 +1,22 @@
+daily_deploy:
+  cron: "0 8 * * 1-5"
+  description: "Daily deployment to dev environment"
+  ref: "refs/heads/develop"
+  active: true
+  cron_timezone: "UTC"
+  take_ownership: true
+  variables:
+    ENVIRONMENT:
+      value: "development"
+    AUTO_DEPLOY:
+      value: "true"
+    CONFIG_PATH:
+      value: "/etc/app/config.json"
+      variable_type: "file"
+
+hourly_health_check:
+  cron: "0 * * * *"
+  description: "Hourly health check"
+  ref: "refs/heads/main"
+  active: true
+  take_ownership: true
