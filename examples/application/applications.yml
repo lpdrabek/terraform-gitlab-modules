@@ -1,0 +1,27 @@
+---
+# Jenkins - GitLab as OAuth provider for CI/CD
+jenkins:
+  redirect_url: "https://jenkins.example.com/securityRealm/finishLogin"
+  scopes:
+    - read_user
+    - api
+  confidential: true
+
+# Harbor - Container registry with GitLab auth
+harbor:
+  redirect_url: "https://harbor.example.com/c/oidc/callback"
+  scopes:
+    - openid
+    - profile
+    - email
+  confidential: true
+
+# Vault - HashiCorp Vault with GitLab OIDC
+vault:
+  redirect_url: "https://vault.example.com/ui/vault/auth/oidc/oidc/callback"
+  scopes:
+    - openid
+    - profile
+    - email
+    - read_user
+  confidential: true

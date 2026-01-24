@@ -42,6 +42,7 @@ AI has been used to create all the things I don't like creating so:
 | [access-token](./modules/access-token/) | Manage project, group, and personal access tokens |
 | [project-mirror](./modules/project-mirror/) | Manage project push and pull mirrors |
 | [pipeline-schedule](./modules/pipeline-schedule/) | Manage pipeline schedules |
+| [application](./modules/application/) | Manage OAuth applications |
 
 ## Quick Start
 
@@ -178,6 +179,7 @@ Working examples are available in the [examples](./examples/) directory:
 | [issue-board](./examples/issue-board/) | Issue board management |
 | [variables](./examples/variables/) | CI/CD variable management |
 | [pipeline-schedule](./examples/pipeline-schedule/) | Pipeline schedule management |
+| [application](./examples/application/) | OAuth application management |
 
 For a real-world usage example, see the [IaC repository](https://gitlab.com/gitlab-utl/terraform-gitlab-modules-iac) that manages this project's GitLab resources (groups, projects, labels, milestones, issues, badges, and GitHub mirror) using these modules.
 
