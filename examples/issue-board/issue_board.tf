@@ -5,7 +5,7 @@
 # - Label-based lists should work on Free tier
 
 module "project_boards" {
-  source = "../../modules/issue_board"
+  source = "../../modules/issue-board"
 
   target = {
     type = "project"
@@ -24,7 +24,7 @@ module "project_boards" {
 # Group boards require Owner role or GitLab Premium
 # Uncomment if you have the required permissions
 # module "group_boards" {
-#   source = "../../modules/issue_board"
+#   source = "../../modules/issue-board"
 #
 #   target = {
 #     type = "group"
@@ -38,7 +38,7 @@ module "project_boards" {
 
 # Uncomment below if you have GitLab Premium/Ultimate
 # module "project_boards_premium" {
-#   source = "../../modules/issue_board"
+#   source = "../../modules/issue-board"
 #
 #   target = {
 #     type = "project"

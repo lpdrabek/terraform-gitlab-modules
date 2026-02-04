@@ -1,5 +1,5 @@
 variable "target" {
-  description = "Target . Accepts \"project\" or \"group\""
+  description = "Target for issue boards. Accepts \"project\" or \"group\""
   type = object({
     type = string # "project" or "group"
     id   = string

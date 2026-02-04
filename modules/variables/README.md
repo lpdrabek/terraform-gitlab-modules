@@ -283,8 +283,13 @@ variables = {
 
 ## Outputs
 
-This module does not currently export any outputs to avoid exposing sensitive variable values.
-
+| Name | Description | Sensitive |
+|------|-------------|-----------|
+| `project_variables` | Map of created project variables | Yes |
+| `group_variables` | Map of created group variables | Yes |
+| `variables` | Map of all created variables (project or group depending on target) | Yes |
+| `variable_keys` | List of created variable keys (names) | No |
+| `variable_metadata` | Map of variable keys to their non-sensitive metadata (environment_scope, variable_type, protected, masked, hidden, raw) | No |
 
 ## Notes
 

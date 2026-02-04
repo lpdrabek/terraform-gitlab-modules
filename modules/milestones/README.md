@@ -241,7 +241,11 @@ milestones = {
 
 ## Outputs
 
-This module currently does not expose any outputs. You can add custom outputs in your root module if needed.
+| Name | Description |
+|------|-------------|
+| `milestones` | Map of created milestones with their attributes |
+| `milestone_ids` | Map of milestone titles to their IDs |
+| `milestone_iids` | Map of milestone titles to their project-specific IIDs |
 
 ## Notes
 

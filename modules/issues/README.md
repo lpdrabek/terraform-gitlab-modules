@@ -285,6 +285,15 @@ module "project_issues" {
 4. **Create Labels**: Uses the `labels` module to create all labels
 5. **Create Issues**: Creates issues with references to the created labels
 
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| `issues` | Map of created issues with their attributes |
+| `issue_iids` | Map of issue keys to their issue IDs (iid - the project-specific issue number) |
+| `issue_web_urls` | Map of issue keys to their web URLs |
+| `milestones` | Map of milestones used by issues (either created or fetched from existing) |
+
 ## Dependencies
 
 This module depends on:

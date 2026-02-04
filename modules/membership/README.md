@@ -179,6 +179,7 @@ The map key defines the access level. Valid access levels are:
 | Name | Description |
 |------|-------------|
 | `memberships` | Map of created memberships with their details |
+| `user_ids` | Map of membership keys to resolved user IDs (useful when looking up by email/username) |
 
 ## GitLab Documentation
 

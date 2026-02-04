@@ -24,6 +24,7 @@ AI has been used to create all the things I don't like creating so:
 | Module | Description |
 |--------|-------------|
 | [project](./modules/project/) | Create and manage GitLab projects with full configuration |
+| [group](./modules/group/) | Create and manage GitLab groups with nested resources |
 | [branch-protection](./modules/branch-protection/) | Manage branch protection rules |
 | [tag-protection](./modules/tag-protection/) | Manage tag protection rules |
 | [membership](./modules/membership/) | Manage project and group memberships |
@@ -31,8 +32,10 @@ AI has been used to create all the things I don't like creating so:
 | [badges](./modules/badges/) | Manage project and group badges |
 | [milestones](./modules/milestones/) | Manage project milestones |
 | [issues](./modules/issues/) | Manage project issues |
-| [issue_board](./modules/issue_board/) | Manage project and group issue boards |
+| [issue-board](./modules/issue-board/) | Manage project and group issue boards |
 | [variables](./modules/variables/) | Manage CI/CD variables |
+| [access-token](./modules/access-token/) | Manage project, group, and personal access tokens |
+| [project-mirror](./modules/project-mirror/) | Manage project push and pull mirrors |
 | [pipeline-schedule](./modules/pipeline-schedule/) | Manage pipeline schedules |
 
 ## Quick Start
@@ -163,7 +166,7 @@ Working examples are available in the [examples](./examples/) directory:
 | [badges](./examples/badges/) | Badge management |
 | [milestones](./examples/milestones/) | Milestone management |
 | [issues](./examples/issues/) | Issue management |
-| [issue_board](./examples/issue_board/) | Issue board management |
+| [issue-board](./examples/issue-board/) | Issue board management |
 | [variables](./examples/variables/) | CI/CD variable management |
 | [pipeline-schedule](./examples/pipeline-schedule/) | Pipeline schedule management |
 

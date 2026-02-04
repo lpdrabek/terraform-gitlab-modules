@@ -149,6 +149,7 @@ module "labels" {
 | Name | Description |
 |------|-------------|
 | `labels` | Map of created labels with their details |
+| `label_ids` | Map of label names to their IDs |
 
 ## GitLab Documentation
 

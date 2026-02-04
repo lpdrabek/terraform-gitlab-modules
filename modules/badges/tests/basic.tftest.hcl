@@ -108,7 +108,7 @@ run "create_only_project_badge" {
       type = "project"
       id   = "123"
     }
-    
+
     create_only = true
     badges = {
       "cicd-badge" = {

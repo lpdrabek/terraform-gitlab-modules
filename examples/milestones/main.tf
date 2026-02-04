@@ -25,9 +25,9 @@ variable "gitlab_token" {
   sensitive   = true
 }
 
-data "gitlab_group" "main_group" {
-  full_path = "tf-tests"
-}
+# data "gitlab_group" "main_group" {
+#   full_path = "tf-tests"
+# }
 
 data "gitlab_project" "main_project" {
   path_with_namespace = "tf-tests/testing-project"

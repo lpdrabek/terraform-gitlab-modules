@@ -1,0 +1,20 @@
+---
+# Date format for changelog entries
+date_format: "%Y-%m-%d"
+
+# Map Changelog trailer values to display categories
+categories:
+  added: "Added"
+  new: "Added"
+  feature: "Added"
+  fixed: "Fixed"
+  fix: "Fixed"
+  bugfix: "Fixed"
+  changed: "Changed"
+  updated: "Changed"
+  improved: "Changed"
+  deprecated: "Deprecated"
+  removed: "Removed"
+  security: "Security"
+  performance: "Performance"
+  other: "Other"

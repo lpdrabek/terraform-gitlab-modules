@@ -1,0 +1,12 @@
+---
+# Do not edit - this header is used by generate:module-jobs
+include:
+  - local: .gitlab/ci/variables.yml
+
+workflow:
+  rules:
+    - when: always
+
+stages:
+  - validate
+  - test
