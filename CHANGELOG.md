@@ -1,3 +1,9 @@
+## 1.1.0 (2026-02-04)
+
+### Fixed (1 change)
+
+- [Fix modules versioning issue which came from the iac repo](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/6ab0d0f20e3ff509041a9822cd6ae9d919ffd063) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/20))
+
 ## 1.0.0 (2026-02-04)
 
 ### Added (30 changes)
