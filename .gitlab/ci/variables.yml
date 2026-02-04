@@ -1,0 +1,7 @@
+---
+# Shared variables for all pipelines
+# Edit versions here - used by both parent and child pipelines
+variables:
+  TERRAFORM_VERSION: "1.14.3"
+  OPENTOFU_VERSION: "1.11.0"
+  TFLINT_VERSION: "v0.60.0"

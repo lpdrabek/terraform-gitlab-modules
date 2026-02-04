@@ -1,0 +1,12 @@
+---
+# Do not edit - this header is used by generate:publish-jobs
+include:
+  - local: .gitlab/ci/variables.yml
+
+workflow:
+  rules:
+    - when: always
+
+stages:
+  - publish
+  - release

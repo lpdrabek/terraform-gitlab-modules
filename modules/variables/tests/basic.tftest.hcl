@@ -68,7 +68,7 @@ run "group_variable_basic" {
 
     variables = {
       "GROUP_VAR" = {
-        value = "group-value"
+        value       = "group-value"
         description = "This is a description"
       }
     }
@@ -249,7 +249,7 @@ run "multiple_variables" {
 
     variables = {
       "VAR_1" = {
-        value = "value-1"
+        value       = "value-1"
         description = "var_1 description"
       }
       "VAR_2" = {

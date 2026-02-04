@@ -13,7 +13,7 @@ resource "gitlab_project_label" "project_labels" {
   project     = var.target.id
   name        = each.key
   description = each.value.description
-  color       = each.value.color != null ? "${each.value.color}" : "#${random_id.label_color[each.key].hex}"
+  color       = each.value.color != null ? each.value.color : "#${random_id.label_color[each.key].hex}"
 }
 
 resource "gitlab_group_label" "group_labels" {
@@ -21,7 +21,7 @@ resource "gitlab_group_label" "group_labels" {
   group       = var.target.id
   name        = each.key
   description = each.value.description
-  color       = each.value.color != null ? "${each.value.color}" : "#${random_id.label_color[each.key].hex}"
+  color       = each.value.color != null ? each.value.color : "#${random_id.label_color[each.key].hex}"
 }
 
 # Create-only labels - ignore changes after creation
@@ -30,7 +30,7 @@ resource "gitlab_project_label" "create_only_project_labels" {
   project     = var.target.id
   name        = each.key
   description = each.value.description
-  color       = each.value.color != null ? "${each.value.color}" : "#${random_id.label_color[each.key].hex}"
+  color       = each.value.color != null ? each.value.color : "#${random_id.label_color[each.key].hex}"
 
   lifecycle {
     ignore_changes = [name, description, color]
@@ -42,7 +42,7 @@ resource "gitlab_group_label" "create_only_group_labels" {
   group       = var.target.id
   name        = each.key
   description = each.value.description
-  color       = each.value.color != null ? "${each.value.color}" : "#${random_id.label_color[each.key].hex}"
+  color       = each.value.color != null ? each.value.color : "#${random_id.label_color[each.key].hex}"
 
   lifecycle {
     ignore_changes = [name, description, color]

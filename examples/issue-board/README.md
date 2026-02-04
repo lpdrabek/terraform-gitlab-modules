@@ -1,6 +1,6 @@
 # Issue Board Module Example
 
-This example demonstrates the `issue_board` module features.
+This example demonstrates the `issue-board` module features.
 
 ## GitLab Tier Limitations
 

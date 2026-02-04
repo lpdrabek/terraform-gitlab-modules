@@ -1,0 +1,155 @@
+---
+include:
+  - local: .gitlab/ci/variables.yml
+
+stages:
+  - generate
+  - validate
+  - test
+  - publish
+
+# ##############################################################################
+# Workflow Rules
+# ##############################################################################
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_TAG
+
+# ##############################################################################
+# Templates
+# ##############################################################################
+.terraform_base:
+  image:
+    name: hashicorp/terraform:${TERRAFORM_VERSION}
+    entrypoint: [""]
+  before_script:
+    - terraform version
+
+.mr_and_master:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "master"
+
+.on_tag:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+$/
+
+# ##############################################################################
+# Stage: Generate - Discover modules and create child pipelines
+# ##############################################################################
+generate:module-jobs:
+  stage: generate
+  extends: .mr_and_master
+  image: alpine:latest
+  script:
+    - |
+      echo "Discovering modules..."
+      MODULES=$(find modules -mindepth 1 -maxdepth 1 -type d | sort)
+      echo "Found modules:"
+      echo "${MODULES}"
+      echo ""
+
+      # Start with header
+      cp .gitlab/ci/child-pipeline-header.yml child-pipeline.yml
+
+      # Generate jobs for each module using template
+      for module_path in ${MODULES}; do
+        module_name=$(basename "${module_path}")
+        echo "Generating jobs for: ${module_name}"
+
+        echo "" >> child-pipeline.yml
+        sed -e "s|__MODULE_NAME__|${module_name}|g" \
+            -e "s|__MODULE_PATH__|${module_path}|g" \
+            .gitlab/ci/module-jobs.yml.tpl >> child-pipeline.yml
+      done
+
+      echo ""
+      echo "Generated child-pipeline.yml with $(grep -c 'stage:' child-pipeline.yml) jobs"
+  artifacts:
+    paths:
+      - child-pipeline.yml
+    expire_in: 1 hour
+
+trigger:module-validation:
+  stage: validate
+  extends: .mr_and_master
+  needs:
+    - job: generate:module-jobs
+      artifacts: true
+  trigger:
+    include:
+      - artifact: child-pipeline.yml
+        job: generate:module-jobs
+    strategy: depend
+
+# ##############################################################################
+# Stage: Validate - Global checks (not per-module)
+# ##############################################################################
+terraform:fmt:
+  extends:
+    - .terraform_base
+    - .mr_and_master
+  stage: validate
+  script:
+    - terraform fmt -check -recursive -diff
+
+yaml:lint:
+  extends: .mr_and_master
+  stage: validate
+  image:
+    name: cytopia/yamllint:latest
+    entrypoint: [""]
+  script:
+    - yamllint --version
+    - yamllint .
+
+# ##############################################################################
+# Stage: Publish - GitLab Terraform Module Registry
+# ##############################################################################
+generate:publish-jobs:
+  stage: generate
+  extends: .on_tag
+  image: alpine:latest
+  script:
+    - |
+      echo "Discovering modules for publishing..."
+      MODULES=$(find modules -mindepth 1 -maxdepth 1 -type d | sort)
+
+      # Start with header
+      cp .gitlab/ci/publish-pipeline-header.yml publish-pipeline.yml
+
+      # Generate publish job for each module using template
+      for module_path in ${MODULES}; do
+        module_name=$(basename "${module_path}")
+        echo "Generating publish job for: ${module_name}"
+
+        echo "" >> publish-pipeline.yml
+        sed -e "s|__MODULE_NAME__|${module_name}|g" \
+            -e "s|__MODULE_PATH__|${module_path}|g" \
+            .gitlab/ci/publish-jobs.yml.tpl >> publish-pipeline.yml
+      done
+
+      # Append release job
+      echo "" >> publish-pipeline.yml
+      cat .gitlab/ci/release-job.yml >> publish-pipeline.yml
+
+      echo ""
+      echo "Generated publish-pipeline.yml with $(grep -c 'stage:' publish-pipeline.yml) jobs"
+  artifacts:
+    paths:
+      - publish-pipeline.yml
+    expire_in: 1 hour
+
+trigger:publish:
+  stage: publish
+  extends: .on_tag
+  needs:
+    - job: generate:publish-jobs
+      artifacts: true
+  trigger:
+    include:
+      - artifact: publish-pipeline.yml
+        job: generate:publish-jobs
+    strategy: depend

@@ -8,9 +8,9 @@ run "schedules_minimal" {
 
     schedules = {
       "schedule1" = {
-        cron  = "0 2 * * *"
+        cron        = "0 2 * * *"
         description = "schedule description, visible in Gitlab"
-        ref = "refs/heads/master"
+        ref         = "refs/heads/master"
       }
     }
   }
@@ -50,9 +50,9 @@ run "schedule_with_var" {
 
     schedules = {
       "schedule1" = {
-        cron  = "2 0 * * *"
+        cron        = "2 0 * * *"
         description = "schedule description"
-        ref = "refs/heads/develop"
+        ref         = "refs/heads/develop"
         variables = {
           "var1" = {
             value = "var1_val"
@@ -110,17 +110,17 @@ run "schedules_with_vars" {
 
     schedules = {
       "schedule1" = {
-        cron  = "* * * * *"
-        description = "schedule description"
-        ref = "refs/heads/develop"
-        cron_timezone = "UTC"
+        cron           = "* * * * *"
+        description    = "schedule description"
+        ref            = "refs/heads/develop"
+        cron_timezone  = "UTC"
         take_ownership = false
         variables = {
           "var1" = {
             value = "var1_val"
           }
           "var2" = {
-            value = "var2_val"
+            value         = "var2_val"
             variable_type = "file"
           }
         }
@@ -138,7 +138,7 @@ run "schedules_with_vars" {
   }
 
   assert {
-    condition     = gitlab_pipeline_schedule.pipeline_schedule["schedule1"].cron == "* * * * *" 
+    condition     = gitlab_pipeline_schedule.pipeline_schedule["schedule1"].cron == "* * * * *"
     error_message = "cron is should be \"* * * * *\""
   }
   assert {

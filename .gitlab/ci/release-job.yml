@@ -1,0 +1,51 @@
+# ==== GitLab Release with Changelog ====
+prepare-release:
+  stage: release
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - |
+      # Update CHANGELOG.md in the repository
+      curl --request POST \
+           --header "PRIVATE-TOKEN: ${CI_API_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data "{\"version\": \"${CI_COMMIT_TAG}\"}" \
+           "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repository/changelog" || echo "CHANGELOG.md update skipped"
+
+      # Generate release notes from changelog API
+      curl --header "PRIVATE-TOKEN: ${CI_API_TOKEN}" \
+           "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repository/changelog?version=${CI_COMMIT_TAG}" \
+        | jq -r '.notes // "No changelog entries found."' > release_notes.md
+
+      # Build asset link flags for each module
+      > asset_links.env
+      for module_path in $(find modules -mindepth 1 -maxdepth 1 -type d | sort); do
+        module_name=$(basename "${module_path}")
+        module_url="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/terraform/modules/${module_name}/gitlab/${CI_COMMIT_TAG}"
+        echo "--assets-link {\"name\":\"${module_name}\",\"url\":\"${module_url}\",\"link_type\":\"package\"}" >> asset_links.env
+      done
+
+      echo "Release notes:"
+      cat release_notes.md
+      echo ""
+      echo "Asset links:"
+      cat asset_links.env
+  artifacts:
+    paths:
+      - release_notes.md
+      - asset_links.env
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: prepare-release
+      artifacts: true
+  script:
+    - |
+      release-cli create \
+        --name "Release ${CI_COMMIT_TAG}" \
+        --tag-name "${CI_COMMIT_TAG}" \
+        --description release_notes.md \
+        $(cat asset_links.env | tr '\n' ' ')
