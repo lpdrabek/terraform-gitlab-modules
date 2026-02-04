@@ -67,7 +67,8 @@ locals {
 
 module "project_milestones" {
   count  = var.create_milestones ? 1 : 0
-  source = "../milestones"
+  source  = "gitlab.com/gitlab-utl/milestones/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
 
   project_id = var.project_id
   milestones = local.distinct_milestones

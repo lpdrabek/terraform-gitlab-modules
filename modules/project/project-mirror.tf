@@ -1,5 +1,6 @@
 module "push_mirror" {
-  source   = "../project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
   for_each = local.projects_with_push_mirror
 
   type = "push"
@@ -17,7 +18,8 @@ module "push_mirror" {
 }
 
 module "pull_mirror" {
-  source   = "../project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
   for_each = local.projects_with_pull_mirror
 
   type = "pull"

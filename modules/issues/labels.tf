@@ -31,7 +31,8 @@ locals {
 }
 
 module "project_labels" {
-  source = "../labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
   count  = var.create_labels ? 1 : 0
 
   labels = local.distinct_labels

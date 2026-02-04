@@ -1,5 +1,6 @@
 module "labels" {
-  source   = "../labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
   for_each = local.all_projects
 
   target = {
