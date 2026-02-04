@@ -1,5 +1,6 @@
 module "issues" {
-  source   = "../issues"
+  source  = "gitlab.com/gitlab-utl/issues/gitlab"
+  version = ">= 1.0.0, < 2.0.0"
   for_each = local.all_projects
 
   project_id  = var.create_only ? gitlab_project.create_only_projects[each.key].id : gitlab_project.projects[each.key].id
