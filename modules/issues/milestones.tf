@@ -66,7 +66,7 @@ locals {
 }
 
 module "project_milestones" {
-  count  = var.create_milestones ? 1 : 0
+  count   = var.create_milestones ? 1 : 0
   source  = "gitlab.com/gitlab-utl/milestones/gitlab"
   version = ">= 1.0.0, < 2.0.0"
 

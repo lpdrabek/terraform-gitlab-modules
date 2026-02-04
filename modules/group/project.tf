@@ -1,6 +1,6 @@
 module "projects" {
-  source  = "gitlab.com/gitlab-utl/project/gitlab"
-  version = ">= 1.0.0, < 2.0.0"
+  source   = "gitlab.com/gitlab-utl/project/gitlab"
+  version  = ">= 1.0.0, < 2.0.0"
   for_each = { for k, v in local.all_groups : k => v if length(v.projects) > 0 && !var.create_only }
 
   projects = {
@@ -43,8 +43,8 @@ module "projects" {
 }
 
 module "create_only_projects" {
-  source  = "gitlab.com/gitlab-utl/project/gitlab"
-  version = ">= 1.0.0, < 2.0.0"
+  source   = "gitlab.com/gitlab-utl/project/gitlab"
+  version  = ">= 1.0.0, < 2.0.0"
   for_each = { for k, v in local.all_groups : k => v if length(v.projects) > 0 && var.create_only }
 
   create_only = true
