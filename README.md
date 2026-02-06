@@ -1,5 +1,10 @@
 # GitLab Terraform Modules
 
+![Static Badge](https://img.shields.io/badge/gitlab-link?logo=gitlab&logoColor=orange&link=https%3A%2F%2Fgitlab.com%2Fgitlab-utl%2Fterraform-gitlab-modules)
+![Latest Release](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/badges/release.svg)
+![Pipeline](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/badges/master/pipeline.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 A collection of reusable Terraform/OpenTofu modules for managing GitLab resources. These modules provide a consistent, declarative way to manage GitLab projects, groups, and their associated resources.
 
 ## Requirements
@@ -69,7 +74,8 @@ variable "gitlab_token" {
 
 ```hcl
 module "my_project" {
-  source = "path/to/modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "awesome-project" = {
@@ -101,7 +107,8 @@ Define resources in YAML files for easier management:
 
 ```hcl
 module "labels" {
-  source = "./modules/labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -118,7 +125,8 @@ Prevent Terraform from managing resources after initial creation:
 
 ```hcl
 module "project" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   create_only = true
 
@@ -136,7 +144,8 @@ User lookups by email, username, or user ID:
 
 ```hcl
 module "membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -169,6 +178,8 @@ Working examples are available in the [examples](./examples/) directory:
 | [issue-board](./examples/issue-board/) | Issue board management |
 | [variables](./examples/variables/) | CI/CD variable management |
 | [pipeline-schedule](./examples/pipeline-schedule/) | Pipeline schedule management |
+
+For a real-world usage example, see the [IaC repository](https://gitlab.com/gitlab-utl/terraform-gitlab-modules-iac) that manages this project's GitLab resources (groups, projects, labels, milestones, issues, badges, and GitHub mirror) using these modules.
 
 ## GitLab Tier Compatibility
 
@@ -207,6 +218,8 @@ gitlab_token = "glpat-xxxxxxxxxxxx"
 | `read_api` | Read-only operations |
 
 ## Contributing
+
+> **Note:** The GitHub repository is a read-only mirror. All development, issues, and merge requests should be submitted on [GitLab](https://gitlab.com/gitlab-utl/terraform-gitlab-modules).
 
 ### Development Setup
 

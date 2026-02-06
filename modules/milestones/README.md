@@ -16,7 +16,8 @@ This module manages GitLab project milestones with flexible configuration option
 
 ```hcl
 module "project_milestones" {
-  source     = "./modules/milestones"
+  source  = "gitlab.com/gitlab-utl/milestones/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   milestones = {
@@ -64,7 +65,8 @@ legacy_milestone:
 **main.tf:**
 ```hcl
 module "project_milestones" {
-  source     = "./modules/milestones"
+  source  = "gitlab.com/gitlab-utl/milestones/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   milestones_file = "${path.module}/milestones.yml"
@@ -75,7 +77,8 @@ module "project_milestones" {
 
 ```hcl
 module "project_milestones" {
-  source     = "./modules/milestones"
+  source  = "gitlab.com/gitlab-utl/milestones/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   # Milestones from code
@@ -98,7 +101,8 @@ Use this mode when you want to create milestones but not update them after creat
 
 ```hcl
 module "project_milestones" {
-  source     = "./modules/milestones"
+  source  = "gitlab.com/gitlab-utl/milestones/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   milestones = {

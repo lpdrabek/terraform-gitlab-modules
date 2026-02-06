@@ -21,7 +21,8 @@ This Terraform module manages GitLab branch protection rules for projects. It su
 
 ```hcl
 module "branch_protection" {
-  source = "./modules/branch-protection"
+  source  = "gitlab.com/gitlab-utl/branch-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -45,7 +46,8 @@ module "branch_protection" {
 
 ```hcl
 module "branch_protection" {
-  source = "./modules/branch-protection"
+  source  = "gitlab.com/gitlab-utl/branch-protection/gitlab"
+  version = "~> 1.1"
 
   project       = gitlab_project.my_project.id
   branches_file = "./branches.yml"
@@ -71,7 +73,8 @@ develop:
 
 ```hcl
 module "branch_protection" {
-  source = "./modules/branch-protection"
+  source  = "gitlab.com/gitlab-utl/branch-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -91,7 +94,8 @@ module "branch_protection" {
 
 ```hcl
 module "branch_protection" {
-  source = "./modules/branch-protection"
+  source  = "gitlab.com/gitlab-utl/branch-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -111,7 +115,8 @@ module "branch_protection" {
 
 ```hcl
 module "branch_protection" {
-  source = "./modules/branch-protection"
+  source  = "gitlab.com/gitlab-utl/branch-protection/gitlab"
+  version = "~> 1.1"
 
   project     = gitlab_project.my_project.id
   create_only = true

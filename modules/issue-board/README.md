@@ -22,7 +22,8 @@ This Terraform module manages GitLab issue boards for projects and groups. It su
 
 ```hcl
 module "project_boards" {
-  source = "./modules/issue_board"
+  source  = "gitlab.com/gitlab-utl/issue-board/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -44,7 +45,8 @@ module "project_boards" {
 
 ```hcl
 module "group_boards" {
-  source = "./modules/issue_board"
+  source  = "gitlab.com/gitlab-utl/issue-board/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -63,7 +65,8 @@ module "group_boards" {
 
 ```hcl
 module "boards" {
-  source = "./modules/issue_board"
+  source  = "gitlab.com/gitlab-utl/issue-board/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -92,7 +95,8 @@ module "boards" {
 
 ```hcl
 module "boards" {
-  source = "./modules/issue_board"
+  source  = "gitlab.com/gitlab-utl/issue-board/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"

@@ -20,7 +20,8 @@ This Terraform module manages GitLab pipeline schedules for projects. It support
 
 ```hcl
 module "pipeline_schedules" {
-  source = "./modules/pipeline-schedule"
+  source  = "gitlab.com/gitlab-utl/pipeline-schedule/gitlab"
+  version = "~> 1.1"
 
   project_id = gitlab_project.my_project.id
 
@@ -39,7 +40,8 @@ module "pipeline_schedules" {
 
 ```hcl
 module "pipeline_schedules" {
-  source = "./modules/pipeline-schedule"
+  source  = "gitlab.com/gitlab-utl/pipeline-schedule/gitlab"
+  version = "~> 1.1"
 
   project_id = gitlab_project.my_project.id
 
@@ -67,7 +69,8 @@ module "pipeline_schedules" {
 
 ```hcl
 module "pipeline_schedules" {
-  source = "./modules/pipeline-schedule"
+  source  = "gitlab.com/gitlab-utl/pipeline-schedule/gitlab"
+  version = "~> 1.1"
 
   project_id     = gitlab_project.my_project.id
   schedules_file = "./schedules.yml"
@@ -106,7 +109,8 @@ Schedules defined in Terraform take precedence over YAML file schedules:
 
 ```hcl
 module "pipeline_schedules" {
-  source = "./modules/pipeline-schedule"
+  source  = "gitlab.com/gitlab-utl/pipeline-schedule/gitlab"
+  version = "~> 1.1"
 
   project_id     = gitlab_project.my_project.id
   schedules_file = "./schedules.yml"

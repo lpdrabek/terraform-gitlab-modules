@@ -19,7 +19,8 @@ This Terraform module manages GitLab CI/CD variables for both projects and group
 
 ```hcl
 module "project_variables" {
-  source = "./modules/variables"
+  source  = "gitlab.com/gitlab-utl/variables/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -49,7 +50,8 @@ module "project_variables" {
 
 ```hcl
 module "group_variables" {
-  source = "./modules/variables"
+  source  = "gitlab.com/gitlab-utl/variables/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -69,7 +71,8 @@ module "group_variables" {
 
 ```hcl
 module "variables" {
-  source = "./modules/variables"
+  source  = "gitlab.com/gitlab-utl/variables/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -123,7 +126,8 @@ Variables defined in Terraform take precedence over YAML file variables:
 
 ```hcl
 module "variables" {
-  source = "./modules/variables"
+  source  = "gitlab.com/gitlab-utl/variables/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"

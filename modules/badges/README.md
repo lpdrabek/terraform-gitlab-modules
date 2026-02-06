@@ -20,7 +20,8 @@ This Terraform module manages GitLab badges for projects and groups. It supports
 
 ```hcl
 module "project_badges" {
-  source = "./modules/badges"
+  source  = "gitlab.com/gitlab-utl/badges/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -44,7 +45,8 @@ module "project_badges" {
 
 ```hcl
 module "group_badges" {
-  source = "./modules/badges"
+  source  = "gitlab.com/gitlab-utl/badges/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -64,7 +66,8 @@ module "group_badges" {
 
 ```hcl
 module "badges" {
-  source = "./modules/badges"
+  source  = "gitlab.com/gitlab-utl/badges/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -95,7 +98,8 @@ license:
 
 ```hcl
 module "badges" {
-  source = "./modules/badges"
+  source  = "gitlab.com/gitlab-utl/badges/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"

@@ -35,7 +35,8 @@ After importing, you can manage the group using Terraform. Subgroups (groups wit
 
 ```hcl
 module "groups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "my-team" = {
@@ -52,7 +53,8 @@ module "groups" {
 
 ```hcl
 module "groups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups_file = "./groups.yml"
 }
@@ -174,7 +176,8 @@ engineering-team:
 
 ```hcl
 module "parent" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "organization" = {
@@ -184,7 +187,8 @@ module "parent" {
 }
 
 module "subgroups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "backend" = {
@@ -203,7 +207,8 @@ module "subgroups" {
 
 ```hcl
 module "groups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "compliant-team" = {
@@ -225,7 +230,8 @@ module "groups" {
 
 ```hcl
 module "groups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "secure-team" = {
@@ -246,7 +252,8 @@ module "groups" {
 
 ```hcl
 module "groups" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   create_only = true
 
@@ -264,7 +271,8 @@ Define projects directly inside groups - they're automatically created with the 
 
 ```hcl
 module "my_team" {
-  source = "./modules/group"
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
 
   groups = {
     "platform-team" = {

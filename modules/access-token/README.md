@@ -20,7 +20,8 @@ This Terraform module manages GitLab access tokens for projects, groups, and per
 
 ```hcl
 module "project_token" {
-  source = "./modules/access-token"
+  source  = "gitlab.com/gitlab-utl/access-token/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -42,7 +43,8 @@ module "project_token" {
 
 ```hcl
 module "group_token" {
-  source = "./modules/access-token"
+  source  = "gitlab.com/gitlab-utl/access-token/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -64,7 +66,8 @@ module "group_token" {
 
 ```hcl
 module "personal_token" {
-  source = "./modules/access-token"
+  source  = "gitlab.com/gitlab-utl/access-token/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "personal"
@@ -85,7 +88,8 @@ module "personal_token" {
 
 ```hcl
 module "tokens" {
-  source = "./modules/access-token"
+  source  = "gitlab.com/gitlab-utl/access-token/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"

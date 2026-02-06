@@ -16,7 +16,8 @@ This module manages GitLab project issues with automatic label creation and flex
 
 ```hcl
 module "project_issues" {
-  source     = "./modules/issues"
+  source  = "gitlab.com/gitlab-utl/issues/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   issues = {
@@ -79,7 +80,8 @@ documentation_update:
 **main.tf:**
 ```hcl
 module "project_issues" {
-  source     = "./modules/issues"
+  source  = "gitlab.com/gitlab-utl/issues/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   issues_file = "./issues.yml"
@@ -92,7 +94,8 @@ Use this mode when you want to create issues but not update them after creation:
 
 ```hcl
 module "project_issues" {
-  source     = "./modules/issues"
+  source  = "gitlab.com/gitlab-utl/issues/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   issues = {
@@ -259,7 +262,8 @@ issues = {
 
 ```hcl
 module "project_issues" {
-  source     = "./modules/issues"
+  source  = "gitlab.com/gitlab-utl/issues/gitlab"
+  version = "~> 1.1"
   project_id = "12345"
 
   # Issues from code

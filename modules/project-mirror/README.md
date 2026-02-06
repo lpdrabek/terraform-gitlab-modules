@@ -21,7 +21,8 @@ This Terraform module manages GitLab project mirroring (push and pull mirrors). 
 
 ```hcl
 module "push_mirror" {
-  source = "./modules/project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = "~> 1.1"
 
   type = "push"
 
@@ -40,7 +41,8 @@ module "push_mirror" {
 
 ```hcl
 module "push_mirror_ssh" {
-  source = "./modules/project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = "~> 1.1"
 
   type = "push"
 
@@ -59,7 +61,8 @@ module "push_mirror_ssh" {
 
 ```hcl
 module "pull_mirror" {
-  source = "./modules/project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = "~> 1.1"
 
   type = "pull"
 
@@ -80,7 +83,8 @@ module "pull_mirror" {
 
 ```hcl
 module "mirrors" {
-  source = "./modules/project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = "~> 1.1"
 
   type        = "push"
   target_file = "./mirrors.yml"
@@ -109,7 +113,8 @@ my-group/project-2:
 
 ```hcl
 module "push_mirror_filtered" {
-  source = "./modules/project-mirror"
+  source  = "gitlab.com/gitlab-utl/project-mirror/gitlab"
+  version = "~> 1.1"
 
   type = "push"
 

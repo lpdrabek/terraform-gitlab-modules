@@ -21,7 +21,8 @@ This Terraform module manages GitLab tag protection rules for projects. It suppo
 
 ```hcl
 module "tag_protection" {
-  source = "./modules/tag-protection"
+  source  = "gitlab.com/gitlab-utl/tag-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -43,7 +44,8 @@ module "tag_protection" {
 
 ```hcl
 module "tag_protection" {
-  source = "./modules/tag-protection"
+  source  = "gitlab.com/gitlab-utl/tag-protection/gitlab"
+  version = "~> 1.1"
 
   project   = gitlab_project.my_project.id
   tags_file = "./tags.yml"
@@ -67,7 +69,8 @@ dev-*:
 
 ```hcl
 module "tag_protection" {
-  source = "./modules/tag-protection"
+  source  = "gitlab.com/gitlab-utl/tag-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -85,7 +88,8 @@ module "tag_protection" {
 
 ```hcl
 module "tag_protection" {
-  source = "./modules/tag-protection"
+  source  = "gitlab.com/gitlab-utl/tag-protection/gitlab"
+  version = "~> 1.1"
 
   project = gitlab_project.my_project.id
 
@@ -103,7 +107,8 @@ module "tag_protection" {
 
 ```hcl
 module "tag_protection" {
-  source = "./modules/tag-protection"
+  source  = "gitlab.com/gitlab-utl/tag-protection/gitlab"
+  version = "~> 1.1"
 
   project     = gitlab_project.my_project.id
   create_only = true

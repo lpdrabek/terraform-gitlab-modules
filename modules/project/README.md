@@ -23,7 +23,8 @@ This Terraform module manages GitLab projects with comprehensive configuration o
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "my-project" = {
@@ -46,7 +47,8 @@ module "projects" {
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects_file = "./projects.yml"
 }
@@ -75,7 +77,8 @@ another-project:
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "secure-project" = {
@@ -98,7 +101,8 @@ module "projects" {
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "full-project" = {
@@ -142,7 +146,8 @@ module "projects" {
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "mirrored-project" = {
@@ -165,7 +170,8 @@ module "projects" {
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   projects = {
     "synced-project" = {
@@ -188,7 +194,8 @@ module "projects" {
 
 ```hcl
 module "projects" {
-  source = "./modules/project"
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
 
   create_only = true
 

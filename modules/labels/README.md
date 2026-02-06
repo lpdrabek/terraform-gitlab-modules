@@ -19,7 +19,8 @@ This Terraform module manages GitLab labels for projects and groups. It supports
 
 ```hcl
 module "project_labels" {
-  source = "./modules/labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -47,7 +48,8 @@ module "project_labels" {
 
 ```hcl
 module "group_labels" {
-  source = "./modules/labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -71,7 +73,8 @@ module "group_labels" {
 
 ```hcl
 module "labels" {
-  source = "./modules/labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -110,7 +113,8 @@ wontfix:
 
 ```hcl
 module "labels" {
-  source = "./modules/labels"
+  source  = "gitlab.com/gitlab-utl/labels/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"

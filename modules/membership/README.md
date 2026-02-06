@@ -21,7 +21,8 @@ This Terraform module manages GitLab project and group memberships. It supports 
 
 ```hcl
 module "project_membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -45,7 +46,8 @@ module "project_membership" {
 
 ```hcl
 module "group_membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "group"
@@ -69,7 +71,8 @@ module "group_membership" {
 
 ```hcl
 module "membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -106,7 +109,8 @@ guest:
 
 ```hcl
 module "membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
@@ -127,7 +131,8 @@ module "membership" {
 
 ```hcl
 module "membership" {
-  source = "./modules/membership"
+  source  = "gitlab.com/gitlab-utl/membership/gitlab"
+  version = "~> 1.1"
 
   target = {
     type = "project"
