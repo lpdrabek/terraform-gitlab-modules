@@ -1,0 +1,38 @@
+# Runners defined via YAML
+# These are merged with runners defined in HCL
+
+# Docker runner for containerized builds
+yaml-docker-runner:
+  runner_type: project_type
+  project_id: 1
+  description: "Docker runner defined in YAML"
+  tag_list:
+    - docker
+    - yaml
+    - linux
+  access_level: not_protected
+  untagged: false
+  maximum_timeout: 3600
+
+# Kubernetes runner for k8s deployments
+yaml-k8s-runner:
+  runner_type: project_type
+  project_id: 1
+  description: "Kubernetes runner for deployments"
+  tag_list:
+    - kubernetes
+    - k8s
+    - deploy
+  access_level: ref_protected
+  locked: true
+  maintenance_note: "Runner for production k8s deployments"
+
+# General purpose runner
+yaml-general-runner:
+  runner_type: project_type
+  project_id: 1
+  description: "General purpose CI runner"
+  tag_list:
+    - general
+    - ci
+  untagged: true
