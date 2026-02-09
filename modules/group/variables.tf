@@ -48,6 +48,16 @@ variable "groups" {
     avatar_hash                  = optional(string)
     permanently_remove_on_delete = optional(bool, false)
 
+    # Deploy Tokens (group-level)
+    deploy_tokens = optional(map(object({
+      scopes                        = list(string)
+      username                      = optional(string)
+      expires_at                    = optional(string)
+      validate_past_expiration_date = optional(bool)
+    })), {})
+    deploy_tokens_file        = optional(string)
+    deploy_tokens_create_only = optional(bool, false)
+
     # Projects to create inside this group
     projects = optional(map(object({
       description            = optional(string)
@@ -138,6 +148,16 @@ variable "groups" {
       })), {})
       issues_file        = optional(string)
       issues_create_only = optional(bool, false)
+
+      # Deploy Tokens (project-level)
+      deploy_tokens = optional(map(object({
+        scopes                        = list(string)
+        username                      = optional(string)
+        expires_at                    = optional(string)
+        validate_past_expiration_date = optional(bool)
+      })), {})
+      deploy_tokens_file        = optional(string)
+      deploy_tokens_create_only = optional(bool, false)
     })), {})
   }))
   default = {}

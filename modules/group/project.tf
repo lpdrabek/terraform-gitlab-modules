@@ -38,6 +38,9 @@ module "projects" {
       issues                                           = try(project.issues, {})
       issues_file                                      = try(project.issues_file, null)
       issues_create_only                               = try(project.issues_create_only, false)
+      deploy_tokens                                    = try(project.deploy_tokens, {})
+      deploy_tokens_file                               = try(project.deploy_tokens_file, null)
+      deploy_tokens_create_only                        = try(project.deploy_tokens_create_only, false)
     }
   }
 }
@@ -84,6 +87,9 @@ module "create_only_projects" {
       issues                                           = try(project.issues, {})
       issues_file                                      = try(project.issues_file, null)
       issues_create_only                               = try(project.issues_create_only, false)
+      deploy_tokens                                    = try(project.deploy_tokens, {})
+      deploy_tokens_file                               = try(project.deploy_tokens_file, null)
+      deploy_tokens_create_only                        = try(project.deploy_tokens_create_only, false)
     }
   }
 }

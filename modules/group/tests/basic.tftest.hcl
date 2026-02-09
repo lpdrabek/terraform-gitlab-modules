@@ -317,3 +317,73 @@ run "group_with_shared_runners" {
     error_message = "shared_runners_setting should be 'disabled_and_overridable'"
   }
 }
+
+run "group_with_deploy_tokens" {
+  command = plan
+
+  variables {
+    groups = {
+      "group-with-tokens" = {
+        description = "Group with deploy tokens"
+
+        deploy_tokens = {
+          "token1" = {
+            scopes   = ["read_registry"]
+            username = "t1user"
+          }
+          "token2" = {
+            scopes     = ["read_package_registry", "write_package_registry"]
+            username   = "t2user"
+            expires_at = "2026-12-31T23:59:59Z"
+          }
+        }
+      }
+    }
+  }
+
+  assert {
+    condition     = length(gitlab_group.groups) == 1
+    error_message = "Should create 1 group"
+  }
+
+  assert {
+    condition     = length(module.deploy_tokens["group-with-tokens"].tokens) == 2
+    error_message = "Should create 2 deploy tokens for the group"
+  }
+}
+
+
+run "group_with_project_deploy_tokens" {
+  command = plan
+
+  variables {
+    groups = {
+      "group-with-project-tokens" = {
+        description = "Group with project that has deploy tokens"
+
+        projects = {
+          "project1" = {
+            description = "API service"
+
+            deploy_tokens = {
+              "token1" = {
+                scopes   = ["read_repository", "read_registry"]
+                username = "t1user"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  assert {
+    condition     = length(gitlab_group.groups) == 1
+    error_message = "Should create 1 group"
+  }
+
+  assert {
+    condition     = length(module.projects) == 1
+    error_message = "Should create projects module for the group"
+  }
+}

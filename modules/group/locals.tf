@@ -50,6 +50,9 @@ locals {
       avatar                       = try(tostring(config.avatar), null)
       avatar_hash                  = try(tostring(config.avatar_hash), null)
       permanently_remove_on_delete = try(tobool(config.permanently_remove_on_delete), false)
+      deploy_tokens                = try(config.deploy_tokens, {})
+      deploy_tokens_file           = try(tostring(config.deploy_tokens_file), null)
+      deploy_tokens_create_only    = try(tobool(config.deploy_tokens_create_only), false)
       projects                     = try(config.projects, {})
     }
   }
@@ -103,6 +106,9 @@ locals {
       avatar                       = config.avatar
       avatar_hash                  = config.avatar_hash
       permanently_remove_on_delete = coalesce(config.permanently_remove_on_delete, false)
+      deploy_tokens                = coalesce(config.deploy_tokens, {})
+      deploy_tokens_file           = config.deploy_tokens_file
+      deploy_tokens_create_only    = coalesce(config.deploy_tokens_create_only, false)
       projects                     = coalesce(config.projects, {})
     }
   }
