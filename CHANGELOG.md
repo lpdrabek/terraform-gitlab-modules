@@ -1,3 +1,21 @@
+## 1.2.0 (2026-02-09)
+
+### Added (3 changes)
+
+- [[deploy-token] deploy-token init](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/8c06b720053859cf103edad0eed16818d31369ec) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/23))
+- [[runner] Runner module init](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/872c88a9e89255835b0f2664bce6e627e8ffa3d4) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/22))
+- [Application module init](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/3431a897561abd331305730462c961dc5427054b) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/21))
+
+### Changed (3 changes)
+
+- [[group] Added deploy-token functionality](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/c06d24eb83243f154ef2b1696abc4a4a3874abb6) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/23))
+- [[project] Added deploy-token functionality](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/368fae91c53e7a0c02cc1d9846fa2c464579d8c3) ([merge request](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/merge_requests/23))
+- [[All modules] Change READMEs to reflect pulbic release](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/9498aaed8fc1f59b20a4a3348e3979bdc09f748c)
+
+### chore (1 change)
+
+- [fix linting and fmt](https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/commit/1551e0fa36490ee27d39c36fef91dffb5c3a73e5)
+
 ## 1.1.0 (2026-02-04)
 
 ### Fixed (1 change)
