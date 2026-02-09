@@ -1,0 +1,19 @@
+# Deploy tokens loaded from YAML file
+# These will be merged with any tokens defined inline in HCL
+
+package-reader:
+  scopes:
+    - read_package_registry
+  username: pkg-reader
+
+registry-full-access:
+  scopes:
+    - read_registry
+    - write_registry
+  username: registry-bot
+  expires_at: "2026-06-30T00:00:00Z"
+
+repository-clone:
+  scopes:
+    - read_repository
+  username: clone-bot
