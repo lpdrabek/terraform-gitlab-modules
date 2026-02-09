@@ -6,6 +6,7 @@ This Terraform module manages GitLab groups with comprehensive configuration opt
 
 - Create and manage GitLab groups with full configuration
 - **Inline projects** - define projects inside groups, automatically created with correct namespace
+- **Deploy tokens** - group-level and project-level deploy tokens
 - YAML file support for easier group management
 - Nested subgroups via parent_id
 - Push rules configuration
@@ -248,6 +249,89 @@ module "groups" {
 }
 ```
 
+### With Group Deploy Tokens
+
+```hcl
+module "groups" {
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
+
+  groups = {
+    "my-team" = {
+      description      = "Team with deploy tokens"
+      visibility_level = "private"
+
+      deploy_tokens = {
+        "registry-read" = {
+          scopes   = ["read_registry"]
+          username = "registry-reader"
+        }
+        "package-access" = {
+          scopes     = ["read_package_registry", "write_package_registry"]
+          username   = "package-bot"
+          expires_at = "2026-12-31T23:59:59Z"
+        }
+      }
+    }
+  }
+}
+```
+
+### With Project Deploy Tokens (Inline Projects)
+
+```hcl
+module "groups" {
+  source  = "gitlab.com/gitlab-utl/group/gitlab"
+  version = "~> 1.1"
+
+  groups = {
+    "platform-team" = {
+      description = "Team with projects and deploy tokens"
+
+      projects = {
+        "api-service" = {
+          description = "Backend API"
+
+          deploy_tokens = {
+            "ci-deploy" = {
+              scopes   = ["read_repository", "read_registry"]
+              username = "ci-deployer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### YAML with Deploy Tokens
+
+```yaml
+devops-team:
+  description: "DevOps team"
+  visibility_level: private
+
+  # Group-level deploy tokens
+  deploy_tokens:
+    group-registry:
+      scopes:
+        - read_registry
+        - write_registry
+      username: group-registry-bot
+
+  projects:
+    infrastructure:
+      description: "Infrastructure code"
+
+      # Project-level deploy tokens
+      deploy_tokens:
+        terraform-token:
+          scopes:
+            - read_repository
+          username: terraform-bot
+```
+
 ### Create-Only Mode
 
 ```hcl
@@ -366,6 +450,25 @@ platform-team/
 | `prevent_secrets` | bool | Prevent pushing secrets |
 | `max_file_size` | number | Max file size in MB |
 
+### Deploy Tokens (Group-Level)
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `deploy_tokens` | map | `{}` | Map of deploy tokens to create |
+| `deploy_tokens_file` | string | `null` | Path to YAML file with deploy tokens |
+| `deploy_tokens_create_only` | bool | `false` | Ignore changes after creation |
+
+#### Deploy Token Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `scopes` | list(string) | - | Scopes for the token (required) |
+| `username` | string | `gitlab+deploy-token-{n}` | Custom username |
+| `expires_at` | string | `null` | Expiration in RFC3339 format |
+| `validate_past_expiration_date` | bool | `null` | Validate past expiration |
+
+Valid scopes: `read_repository`, `read_registry`, `write_registry`, `read_virtual_registry`, `write_virtual_registry`, `read_package_registry`, `write_package_registry`
+
 ## Outputs
 
 | Name | Description |
@@ -379,3 +482,5 @@ platform-team/
 - [Groups](https://docs.gitlab.com/ee/user/group/)
 - [Groups API](https://docs.gitlab.com/ee/api/groups.html)
 - [Push Rules](https://docs.gitlab.com/ee/user/group/access_and_permissions.html#group-push-rules)
+- [Deploy Tokens](https://docs.gitlab.com/ee/user/project/deploy_tokens/)
+- [Group Deploy Tokens](https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#group-deploy-tokens)

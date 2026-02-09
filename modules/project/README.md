@@ -6,10 +6,11 @@ This Terraform module manages GitLab projects with comprehensive configuration o
 
 - Create and manage GitLab projects with full configuration
 - YAML file support for easier project management
-- Nested resource management (milestones, labels, badges, issues)
+- Nested resource management (milestones, labels, badges, issues, deploy tokens)
 - Push and pull mirror configuration
 - Push rules configuration
 - Container expiration policy
+- Pipeline trigger configuration
 - Create-only mode to prevent drift after initial creation
 
 ## Requirements
@@ -190,6 +191,87 @@ module "projects" {
 }
 ```
 
+### With Deploy Tokens
+
+```hcl
+module "projects" {
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
+
+  projects = {
+    "project-with-tokens" = {
+      description      = "Project with deploy tokens"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      deploy_tokens = {
+        "ci-deploy" = {
+          scopes   = ["read_repository", "read_registry"]
+          username = "ci-deployer"
+        }
+        "registry-push" = {
+          scopes     = ["read_registry", "write_registry"]
+          username   = "registry-pusher"
+          expires_at = "2026-12-31T23:59:59Z"
+        }
+      }
+    }
+  }
+}
+```
+
+### With Deploy Tokens from YAML File
+
+```hcl
+module "projects" {
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
+
+  projects = {
+    "project-with-tokens" = {
+      description        = "Project with deploy tokens from file"
+      namespace_id       = gitlab_group.my_group.id
+      deploy_tokens_file = "./deploy-tokens.yml"
+    }
+  }
+}
+```
+
+Example `deploy-tokens.yml`:
+
+```yaml
+ci-deploy:
+  scopes:
+    - read_repository
+    - read_registry
+  username: ci-deployer
+
+registry-push:
+  scopes:
+    - read_registry
+    - write_registry
+  expires_at: "2026-12-31T23:59:59Z"
+```
+
+### With Pipeline Trigger
+
+```hcl
+module "projects" {
+  source  = "gitlab.com/gitlab-utl/project/gitlab"
+  version = "~> 1.1"
+
+  projects = {
+    "triggered-project" = {
+      description      = "Project with pipeline trigger"
+      namespace_id     = gitlab_group.my_group.id
+      visibility_level = "private"
+
+      pipeline_trigger = "External CI trigger"
+    }
+  }
+}
+```
+
 ### Create-Only Mode
 
 ```hcl
@@ -289,6 +371,23 @@ module "projects" {
 | `only_mirror_protected_branches` | bool | `null` | Only mirror protected branches |
 | `mirror_branch_regex` | string | `null` | Regex for branches to mirror (Premium/Ultimate) |
 
+### Deploy Tokens
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `scopes` | list(string) | - | Scopes for the token (required) |
+| `username` | string | `gitlab+deploy-token-{n}` | Custom username for the token |
+| `expires_at` | string | `null` | Expiration date in RFC3339 format |
+| `validate_past_expiration_date` | bool | `null` | Whether to validate past expiration dates |
+
+Valid scopes: `read_repository`, `read_registry`, `write_registry`, `read_virtual_registry`, `write_virtual_registry`, `read_package_registry`, `write_package_registry`
+
+### Pipeline Trigger
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `pipeline_trigger` | string | Description for the pipeline trigger token |
+
 ### Nested Resources
 
 | Property | Type | Description |
@@ -297,10 +396,12 @@ module "projects" {
 | `milestones` | map | Project milestones |
 | `badges` | map | Project badges |
 | `issues` | map | Project issues |
+| `deploy_tokens` | map | Project deploy tokens |
 | `labels_file` | string | Path to labels YAML file |
 | `milestones_file` | string | Path to milestones YAML file |
 | `badges_file` | string | Path to badges YAML file |
 | `issues_file` | string | Path to issues YAML file |
+| `deploy_tokens_file` | string | Path to deploy tokens YAML file |
 
 ## Outputs
 
@@ -315,3 +416,5 @@ module "projects" {
 - [Projects API](https://docs.gitlab.com/ee/api/projects.html)
 - [Push Rules](https://docs.gitlab.com/ee/user/project/repository/push_rules.html)
 - [Repository Mirroring](https://docs.gitlab.com/ee/user/project/repository/mirror/)
+- [Deploy Tokens](https://docs.gitlab.com/ee/user/project/deploy_tokens/)
+- [Pipeline Triggers](https://docs.gitlab.com/ee/ci/triggers/)

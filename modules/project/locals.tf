@@ -167,6 +167,11 @@ locals {
 
       # Pipeline trigger - creates a trigger that you can curl to start a pipeline
       pipeline_trigger = try(project.pipeline_trigger, null)
+
+      # Deploy Tokens
+      deploy_tokens             = try(project.deploy_tokens, {})
+      deploy_tokens_file        = try(project.deploy_tokens_file, null)
+      deploy_tokens_create_only = try(project.deploy_tokens_create_only, false)
     }
   }
 
