@@ -1,4 +1,10 @@
-mock_provider "gitlab" {}
+mock_provider "gitlab" {
+  mock_resource "gitlab_group" {
+    defaults = {
+      id = 12345 # forcing a number - needed for nested project module which expects namespace_id as number
+    }
+  }
+}
 
 run "basic_group" {
   command = plan
