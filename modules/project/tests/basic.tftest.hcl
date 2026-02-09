@@ -483,3 +483,29 @@ run "project_with_pipeline_trigger" {
     error_message = "Trigger description should be \"trigger\""
   }
 }
+
+run "project_with_deploy_tokens" {
+  command = plan
+
+  variables {
+    projects = {
+      "with-deploy-tokens" = {
+        deploy_tokens = {
+          "token1" = {
+            scopes   = ["read_repository", "read_registry"]
+            username = "t1user"
+          }
+          "token2" = {
+            scopes     = ["read_registry", "write_registry"]
+            expires_at = "2026-12-31T23:59:59Z"
+          }
+        }
+      }
+    }
+  }
+
+  assert {
+    condition     = length(module.deploy_tokens["with-deploy-tokens"].tokens) == 2
+    error_message = "Should create 2 deploy tokens"
+  }
+}

@@ -199,6 +199,16 @@ variable "projects" {
 
     # Pipeline trigger - creates a trigger that you can curl to start a pipeline
     pipeline_trigger = optional(string)
+
+    # Deploy Tokens (inline or via file)
+    deploy_tokens = optional(map(object({
+      scopes                        = list(string)
+      username                      = optional(string)
+      expires_at                    = optional(string)
+      validate_past_expiration_date = optional(bool)
+    })), {})
+    deploy_tokens_file        = optional(string)
+    deploy_tokens_create_only = optional(bool, false)
   }))
   default = {}
 
