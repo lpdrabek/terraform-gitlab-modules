@@ -1,0 +1,17 @@
+# Deploy keys loaded from YAML file
+# These will be merged with any deploy keys defined inline in HCL
+
+ci-deploy-key:
+  key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICIdeploy ci-deploy"
+
+production-deploy:
+  key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIProdDeploy production"
+  can_push: false
+  expires_at: "2026-06-30T00:00:00Z"
+
+# Create a key and enable it on additional projects
+shared-across-projects:
+  key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAISharedYaml"
+  enable:
+    - "group/project-b"
+    - "group/project-c"
