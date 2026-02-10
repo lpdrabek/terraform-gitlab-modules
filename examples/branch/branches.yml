@@ -1,0 +1,30 @@
+# Branch configuration
+# Key is the branch name to create
+# create_from specifies the ref (branch, tag, or commit) to create from
+
+develop:
+  create_from: master
+
+staging:
+  create_from: master
+
+# Feature branches
+feature/user-auth:
+  create_from: develop
+
+feature/api-v2:
+  create_from: develop
+  keep_on_destroy: true
+
+# Release branches
+release/v1.0:
+  create_from: master
+  keep_on_destroy: true
+
+# Example: Create from a tag (uncomment to use)
+# hotfix/v1.0.1:
+#   create_from: v1.0.0
+
+# Example: Create from a specific commit
+# bugfix/legacy-fix:
+#   create_from: abc123def456789
