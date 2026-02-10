@@ -1,4 +1,3 @@
-
 resource "gitlab_project_wiki_page" "pages" {
   for_each = var.create_only ? {} : local.all_pages
   project  = var.project_id

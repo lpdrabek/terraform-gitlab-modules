@@ -1,0 +1,17 @@
+faq:
+  title: "FAQ"
+  content: |
+    ## Frequently Asked Questions
+
+    ### How do I contribute?
+    See the contributing guide.
+
+    ### Where do I report bugs?
+    Open an issue in the project tracker.
+
+changelog:
+  content: |
+    ## Changelog
+
+    ### v1.0.0
+    - Initial release
