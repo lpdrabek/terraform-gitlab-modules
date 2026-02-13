@@ -1,0 +1,69 @@
+# Repository file configuration
+# Key is the file path relative to the repository root
+
+.editorconfig:
+  branch: master
+  content: |
+    root = true
+
+    [*]
+    indent_style = space
+    indent_size = 2
+    end_of_line = lf
+    charset = utf-8
+    trim_trailing_whitespace = true
+    insert_final_newline = true
+
+.gitlab-ci.yml:
+  branch: master
+  content: |
+    stages:
+      - build
+      - test
+      - deploy
+
+    build:
+      stage: build
+      script:
+        - echo "Building..."
+
+    test:
+      stage: test
+      script:
+        - echo "Testing..."
+
+    deploy:
+      stage: deploy
+      script:
+        - echo "Deploying..."
+      only:
+        - main
+  commit_message: "Add CI/CD pipeline configuration"
+
+docs/contributing.md:
+  branch: master
+  content: |
+    # Contributing
+
+    Thank you for your interest in contributing!
+
+    ## How to Contribute
+
+    1. Fork the repository
+    2. Create a feature branch
+    3. Make your changes
+    4. Submit a pull request
+  author_name: "Terraform"
+  author_email: "terraform@example.com"
+
+# Example: File with custom commit messages
+# src/config.js:
+#   branch: master
+#   content: |
+#     module.exports = {
+#       apiUrl: 'https://api.example.com',
+#       timeout: 5000
+#     };
+#   create_commit_message: "feat: add initial config"
+#   update_commit_message: "chore: update config"
+#   delete_commit_message: "chore: remove config"
