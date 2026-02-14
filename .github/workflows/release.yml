@@ -4,7 +4,7 @@ name: Release
 on:
   push:
     tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]*.[0-9]*.[0-9]*"
 
 permissions:
   contents: write
@@ -17,8 +17,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate release body
+        id: body
+        run: |
+          TAG="${{ github.ref_name }}"
+          {
+            echo "body<<EOF"
+            echo "## Modules"
+            echo ""
+            for module in modules/*/; do
+              name=$(basename "$module")
+              echo "<details>"
+              echo "<summary><b>${name}</b></summary>"
+              echo ""
+              echo "**Registry:** https://gitlab.com/api/v4/projects/77426275/packages/terraform/modules/${name}/gitlab/${TAG}"
+              echo ""
+              echo "**Usage:**"
+              echo '```hcl'
+              echo "module \"${name}\" {"
+              echo "  source  = \"gitlab.com/gitlab-utl/${name}/gitlab\""
+              echo "  version = \"${TAG}\""
+              echo "}"
+              echo '```'
+              echo "</details>"
+              echo ""
+            done
+            echo "---"
+            echo ""
+            echo "**GitLab Release:** https://gitlab.com/gitlab-utl/terraform-gitlab-modules/-/releases/${TAG}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ github.ref_name }}
+          body: ${{ steps.body.outputs.body }}
           generate_release_notes: true
