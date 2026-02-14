@@ -39,8 +39,8 @@ jobs:
           for module in modules/*/; do
             name=$(basename "$module")
             echo "::group::${name}"
-            tflint --chdir="$module" --init
-            tflint --chdir="$module" || failed=1
+            tflint --chdir="$module" --config="$(pwd)/.tflint.hcl" --init
+            tflint --chdir="$module" --config="$(pwd)/.tflint.hcl" || failed=1
             echo "::endgroup::"
           done
           exit $failed
