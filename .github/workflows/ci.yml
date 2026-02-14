@@ -1,0 +1,68 @@
+---
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+  tflint:
+    name: TFLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Lint all modules
+        run: |
+          failed=0
+          for module in modules/*/; do
+            name=$(basename "$module")
+            echo "::group::${name}"
+            tflint --chdir="$module" --init
+            tflint --chdir="$module" || failed=1
+            echo "::endgroup::"
+          done
+          exit $failed
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Validate all modules
+        run: |
+          failed=0
+          for module in modules/*/; do
+            name=$(basename "$module")
+            echo "::group::${name}"
+            terraform -chdir="$module" init -backend=false
+            terraform -chdir="$module" validate || failed=1
+            echo "::endgroup::"
+          done
+          exit $failed
